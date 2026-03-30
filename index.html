@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>English Journey</title>
+<meta name="theme-color" content="#131F24">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="English Journey">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23131F24' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' font-size='55'>🚀</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;width:100%;overflow-x:hidden;font-family:'Nunito',sans-serif;font-size:16px;background:#131F24}
+body{overscroll-behavior:none;color:#fff}
+.S{display:none;min-height:100vh;flex-direction:column}.S.on{display:flex}
+button{font-family:'Nunito',sans-serif;cursor:pointer;border:none}
+.T:active{transform:scale(.95);transition:transform .1s}
+@keyframes su{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bn{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pl{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes cf{0%{opacity:1;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(90vh) rotate(700deg)}}
+@keyframes gl{0%,100%{box-shadow:0 0 8px rgba(28,176,246,.4)}50%{box-shadow:0 0 20px rgba(28,176,246,.7)}}
+@keyframes si{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes cp{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes sk{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes tp{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes rpulse{0%{box-shadow:0 0 0 0 rgba(255,75,75,.5)}70%{box-shadow:0 0 0 15px rgba(255,75,75,0)}100%{box-shadow:0 0 0 0 rgba(255,75,75,0)}}
+.as{animation:su .4s ease-out both}.ab{animation:bn 2s infinite}.ap{animation:pl 1.5s infinite}
+.pbar{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.pbar-x{width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#566570}
+.pbar-track{flex:1;height:14px;background:#37464F;border-radius:8px;overflow:hidden}
+.pbar-fill{height:100%;background:linear-gradient(90deg,#FFC800,#FF9600);border-radius:8px;transition:width .5s}
+.combo{text-align:center;font-size:15px;font-weight:900;color:#FFC800;animation:cp .3s ease-out;margin-bottom:-4px}
+.char-area{display:flex;align-items:center;gap:12px;padding:16px 20px;justify-content:center}
+.char-img{font-size:72px;position:relative;line-height:1;min-width:88px}
+.char-shadow{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:50px;height:10px;background:rgba(0,0,0,.3);border-radius:50%;filter:blur(4px)}
+.speech-bub{background:#1B2B34;border:2px solid #37464F;border-radius:16px;padding:12px 18px;position:relative;max-width:200px}
+.speech-bub::before{content:"";position:absolute;left:-10px;top:50%;transform:translateY(-50%);border:8px solid transparent;border-right-color:#37464F}
+.speech-bub .aud{display:inline-flex;align-items:center;gap:8px;font-size:18px;font-weight:800;color:#1CB0F6;cursor:pointer}
+.speech-bub .aud-icon{width:28px;height:28px;background:#1CB0F6;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.opts-list{display:flex;flex-direction:column;gap:10px;padding:0 16px}
+.opt-fw{width:100%;padding:16px 20px;border-radius:14px;font-size:18px;font-weight:700;text-align:center;background:#1B2B34;border:2px solid #37464F;color:#E5E5E5;transition:all .15s}
+.opt-fw.selected{border-color:#1CB0F6;background:#1B3644;color:#1CB0F6}
+.opt-fw.correct{border-color:#58CC02;background:#1B3424;color:#58CC02}
+.opt-fw.wrong{border-color:#FF4B4B;background:#3B1B1B;color:#FF4B4B;animation:sk .4s}
+.rp{position:fixed;bottom:0;left:0;right:0;padding:20px 16px;z-index:50;animation:si .3s ease-out}
+.rp.ok{background:#1B3424;border-top:2px solid #58CC02}
+.rp.no{background:#3B1B1B;border-top:2px solid #FF4B4B}
+.rp-label{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rp-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900}
+.rp-icon.ok{background:#58CC02;color:#fff}.rp-icon.no{background:#FF4B4B;color:#fff}
+.rp-text{font-size:20px;font-weight:900}
+.rp-text.ok{color:#58CC02}.rp-text.no{color:#FF4B4B}
+.rp-sub{font-size:14px;color:#ABB5BA;margin-bottom:10px}
+.btn-ct{width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:1px}
+.btn-ct.ok{background:#58CC02;color:#fff}.btn-ct.no{background:#FF4B4B;color:#fff}
+.btn-chk{width:calc(100% - 32px);margin:0 16px;padding:16px;border-radius:14px;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:1px;background:#58CC02;color:#fff;position:fixed;bottom:20px;left:0;z-index:40}
+.btn-chk.dis{background:#37464F;color:#566570;pointer-events:none}
+
+/* REPEAT READ SECTION */
+.repeat-sec{background:#1B2B34;border:1px solid #37464F;border-radius:14px;padding:14px;margin:8px 0;text-align:center}
+.repeat-word{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px}
+.repeat-ph{font-size:14px;color:#1CB0F6;margin-bottom:10px}
+.mic-sm{width:56px;height:56px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;color:#fff;margin:4px}
+.mic-sm.off{background:#FF4B4B;animation:rpulse 1.5s infinite}
+.mic-sm.on{background:#FF4B4B;animation:pl .8s infinite}
+.mic-sm.pass{background:#58CC02}
+.repeat-status{font-size:13px;color:#566570;margin-top:6px}
+.repeat-ok{font-size:15px;font-weight:800;color:#58CC02;margin-top:6px}
+.repeat-fail{font-size:13px;color:#FF9600;margin-top:6px}
+
+.wb-placed{min-height:52px;border-bottom:2px solid #37464F;margin:0 16px 8px;padding:8px 0;display:flex;flex-wrap:wrap;gap:8px}
+.wb-placed2{min-height:52px;border-bottom:2px solid #37464F;margin:0 16px 16px;padding:8px 0}
+.wb-bank{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px;justify-content:center;margin-bottom:100px}
+.wb-word{padding:10px 16px;border-radius:12px;font-size:16px;font-weight:700;background:#1B2B34;border:2px solid #37464F;color:#E5E5E5}
+.wb-word.placed{background:#37464F;color:#58CC02;border-color:#58CC02}
+.chat{display:flex;flex-direction:column;gap:10px;padding:12px;overflow-y:auto;flex:1}
+.bub{display:flex;align-items:flex-start;gap:10px;animation:tp .4s ease-out both}
+.bub-av{flex-shrink:0;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#fcd34d,#f97316);display:flex;align-items:center;justify-content:center;font-size:18px}
+.bub-box{max-width:82%;background:#1B2B34;border:1px solid #37464F;border-radius:0 16px 16px 16px;padding:12px 14px;font-size:14px;line-height:1.6;color:#CDD4DA}
+.bub-name{font-size:10px;font-weight:800;color:#FFC800;margin-bottom:2px}
+.bub-hl{background:rgba(88,204,2,.15);border:1px solid #58CC02;border-radius:10px;padding:8px 12px;margin:8px 0;font-weight:800;color:#58CC02;text-align:center;font-size:17px}
+.bub-img{width:100%;border-radius:12px;margin:8px 0;max-height:130px;object-fit:cover}
+.listen-inline{display:inline-flex;align-items:center;gap:6px;background:#1CB0F6;color:#fff;padding:8px 16px;border-radius:12px;font-size:14px;font-weight:700;margin:6px 0}
+.colan-speak{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#FF9600,#FFC800);color:#131F24;padding:7px 14px;border-radius:12px;font-size:13px;font-weight:800;margin:6px 4px 6px 0}
+.speak-both{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#CE82FF,#A855F7);color:#fff;padding:7px 14px;border-radius:12px;font-size:13px;font-weight:800;margin:6px 0}
+#mapS{background:linear-gradient(180deg,#131F24,#1B2B34,#131F24);padding-bottom:40px}
+.resume{background:linear-gradient(90deg,#FFC800,#FF9600);border-radius:16px;padding:14px 16px;margin:0 20px 16px;display:flex;align-items:center;gap:12px}
+.resume-t{font-size:14px;font-weight:700;color:#131F24;flex:1}.resume-b{background:#131F24;color:#FFC800;font-weight:800;font-size:13px;padding:8px 16px;border-radius:12px}
+.mic-btn{width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;margin-bottom:8px}
+.mic-btn.off{background:#FF4B4B;box-shadow:0 4px 20px rgba(255,75,75,.4)}
+.mic-btn.on{background:#FF4B4B;animation:pl 1s infinite}
+#splash{background:linear-gradient(180deg,#131F24,#1B2B34);align-items:center;justify-content:center;text-align:center;padding:24px}
+.acard{background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.acard-i{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.cfx{position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden}
+.cfp{position:absolute;border-radius:50%;animation:cf ease-out forwards}
+.bsp{height:100px}
+.av-img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.bub-av img,.colan-av img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+/* PWA Install Banner */
+.install-bar{background:linear-gradient(90deg,#1CB0F6,#1899D6);border-radius:14px;padding:12px 16px;margin:0 20px 12px;display:flex;align-items:center;gap:10px}
+.install-bar p{flex:1;font-size:13px;font-weight:700;color:#fff}
+.install-bar button{background:#fff;color:#1CB0F6;font-weight:800;font-size:12px;padding:8px 14px;border-radius:10px;white-space:nowrap}
+.install-bar .close{background:none;color:rgba(255,255,255,.7);font-size:18px;padding:4px 8px}
+</style>
+</head>
+<body>
+
+<div id="splash" class="S on">
+<div style="font-size:64px" class="ab">🚀</div>
+<h1 style="font-size:30px;font-weight:900;margin:8px 0">English Journey</h1>
+<p style="font-size:16px;color:#ABB5BA;margin-bottom:24px;line-height:1.5">Hành trình từ ZERO đến HERO<br>cùng Cô Lan!</p>
+<div style="background:rgba(255,255,255,.06);border:1px solid #37464F;border-radius:16px;padding:16px;margin-bottom:24px;width:100%;max-width:340px">
+<div style="display:flex;align-items:flex-start;gap:12px"><div style="width:120px;height:120px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid #FFC800"><img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover"></div><div style="text-align:left"><p style="font-size:13px;font-weight:800;color:#FFC800">Cô Lan</p><p style="font-size:13px;color:#ABB5BA;line-height:1.5">Chào các em! Cô là Lan, cô sẽ dạy các em tiếng Anh từ con số 0 nhé! Đừng lo, cô dạy dễ hiểu lắm! 💪</p></div></div></div>
+<button class="T" style="width:100%;max-width:340px;background:#58CC02;color:#fff;padding:16px;border-radius:14px;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px" onclick="goMap()">Bắt đầu học</button>
+<div style="margin-top:20px;opacity:.6"><p style="font-size:11px;color:#566570">Tạo bởi <b>Phạm Khởi</b> · <a href="tel:0962658682" style="color:#1CB0F6;text-decoration:none">Zalo: 0962658682</a></p></div>
+</div>
+<div id="mapS" class="S"></div>
+<div id="lesson" class="S"></div>
+<div id="cfx" class="cfx" style="display:none"></div>
+
+<script>
+/* ============ STATION DATA ============ */
+var AVATAR="data:image/jpeg;base64,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";
+function avH(){return '<img src="'+AVATAR+'" class="av-img">'}
+
+var SD={
+1:{name:"Xây Móng",sub:"Đại từ & To-be",lvl:"A1",icon:"🏗️",
+vocab:[
+{en:"teacher",vn:"Giáo viên",ph:"Ti-chờ",ipa:"/ˈtiːtʃər/",img:"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=200&fit=crop",em:"👩‍🏫"},
+{en:"student",vn:"Học sinh",ph:"Xtiu-đần",ipa:"/ˈstjuːdənt/",img:"https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=300&h=200&fit=crop",em:"👨‍🎓"},
+{en:"happy",vn:"Vui vẻ",ph:"Hép-pi",ipa:"/ˈhæpi/",img:"https://images.unsplash.com/photo-1535295972055-1c762f4483e5?w=300&h=200&fit=crop",em:"😊"},
+{en:"book",vn:"Quyển sách",ph:"Bụk",ipa:"/bʊk/",img:"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&h=200&fit=crop",em:"📖"},
+{en:"friend",vn:"Bạn bè",ph:"Phren-đ",ipa:"/frɛnd/",img:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300&h=200&fit=crop",em:"🤝"}],
+vocabTips:["Nào các em, mở sách ra nha! Từ đầu tiên cô dạy hôm nay là <b>Teacher</b> — nghĩa là Giáo viên, giống cô nè! 😄 Các em đọc theo cô: /Ti-chờ/. Ai đọc to cô nghe nào!","Từ thứ hai nè, <b>Student</b> — Học sinh, là các em đó! 😊 Đọc theo cô nha: /Xtiu-đần/. Nhớ chưa? Student là học sinh!","Tiếp theo nha các em! <b>Happy</b> — nghĩa là Vui vẻ. Khi nào vui các em nói Happy nhé! 😄 Đọc: /Hép-pi/. Cả lớp đọc lại đi!","Từ thứ tư rồi nè! <b>Book</b> — Quyển sách. Ngắn gọn lắm, chỉ có 4 chữ cái thôi! Đọc: /Bụk/. Dễ không các em?","Từ cuối cùng rồi nè! <b>Friend</b> — Bạn bè. Cô và các em là friends nè! 🤝 Đọc: /Phren-đ/. Giỏi lắm, vỗ tay cho mình nào!"],
+grammarTips:["Các em chú ý nha! Bây giờ cô dạy phần RẤT QUAN TRỌNG! Trong tiếng Việt mình chỉ có một chữ <b>\"là\"</b>, nhưng tiếng Anh có tới <b>3 chữ: am, is, are</b>! Nghe khó nhưng cô có mẹo cực dễ nhớ!","Cả lớp nhìn lên bảng nha! Cô ghi mẹo đây! 🧠",'<div class="bub-hl">I → AM</div>Mẹo nhớ nè các em: <b>"Tôi yêu em"</b> → chữ <b>\"em\"</b> nghe giống <b>\"am\"</b> phải không? Vậy nhớ luôn: <b>I</b> luôn đi với <b>am</b>! 💡<br><br>Ví dụ: <i>I am a student</i> = Tôi là học sinh','<div class="bub-hl">He / She / It → IS</div>Khi nói về <b>MỘT người</b> hoặc <b>MỘT vật</b> thì dùng <b>is</b> nha các em! 👆 Nhớ: \"Một mình thì is\"!<br><br>Ví dụ: <i>She is a teacher</i> = Cô ấy là giáo viên','<div class="bub-hl">You / We / They → ARE</div>Còn khi nói <b>\"Bạn\"</b> hoặc <b>\"nhiều người\"</b> thì dùng <b>are</b> nha! 👥 Nhớ: \"Đông đúc thì are\"!<br><br>Ví dụ: <i>We are friends</i> = Chúng ta là bạn bè',"Cả lớp nhìn lên tóm tắt nè:<br>🔵 <b>I → am</b> (Tôi yêu \"em\")<br>🟢 <b>He/She/It → is</b> (Một mình)<br>🟣 <b>You/We/They → are</b> (Đông đúc)<br><br>Ai nhớ được giơ tay cô xem nào! 🙋","Giỏi lắm các em! Học lý thuyết xong rồi! Bây giờ cô <b>phát bài tập</b> cho cả lớp làm nha. Ai làm đúng hết cô cho điểm 10! 💪"],
+readQ:[{em:"👩‍🏫",a:"teacher",o:["teacher","student","book","friend"],vn:"Giáo viên"},{em:"👨‍🎓",a:"student",o:["happy","student","teacher","friend"],vn:"Học sinh"},{em:"📖",a:"book",o:["friend","teacher","book","happy"],vn:"Quyển sách"},{em:"😊",a:"happy",o:["book","happy","student","teacher"],vn:"Vui vẻ"},{em:"🤝",a:"friend",o:["teacher","book","happy","friend"],vn:"Bạn bè"}],
+listenQ:[{w:"teacher",o:["teacher","student","happy","book"]},{w:"happy",o:["friend","happy","teacher","student"]},{w:"book",o:["book","teacher","friend","happy"]},{w:"student",o:["happy","book","student","teacher"]},{w:"friend",o:["teacher","friend","book","student"]}],
+writeQ:[{a:["I","am","a","student"],vn:"Tôi là một học sinh",en:"I am a student",extra:["the","my"]},{a:["You","are","happy"],vn:"Bạn vui vẻ",en:"You are happy",extra:["is"]},{a:["She","is","a","teacher"],vn:"Cô ấy là giáo viên",en:"She is a teacher",extra:["am"]},{a:["We","are","friends"],vn:"Chúng tôi là bạn bè",en:"We are friends",extra:["is"]},{a:["He","is","happy"],vn:"Anh ấy vui vẻ",en:"He is happy",extra:["are"]}],
+speakQ:[{t:"I am happy",vn:"Tôi vui vẻ",ph:"Ai em hép-pi"},{t:"She is a teacher",vn:"Cô ấy là giáo viên",ph:"Si iz ờ ti-chờ"},{t:"You are a student",vn:"Bạn là một học sinh",ph:"Du a ờ xtiu-đần"},{t:"We are friends",vn:"Chúng tôi là bạn bè",ph:"Uy a phren-đ-z"},{t:"He is happy",vn:"Anh ấy vui vẻ",ph:"Hi iz hép-pi"}]
+},
+2:{name:"Chào Hỏi",sub:"Giao tiếp cơ bản",lvl:"A1",icon:"👋",
+vocab:[
+{en:"hello",vn:"Xin chào",ph:"Hê-lâu",ipa:"/həˈloʊ/",img:"https://images.unsplash.com/photo-1516575150278-77136aed6920?w=300&h=200&fit=crop",em:"👋"},
+{en:"goodbye",vn:"Tạm biệt",ph:"Gút-bai",ipa:"/ɡʊdˈbaɪ/",img:"https://images.unsplash.com/photo-1527689368864-3a821dbccc34?w=300&h=200&fit=crop",em:"👋"},
+{en:"thank you",vn:"Cảm ơn",ph:"Thenk-kiu",ipa:"/θæŋk juː/",img:"https://images.unsplash.com/photo-1531747056868-e1b9976e9413?w=300&h=200&fit=crop",em:"🙏"},
+{en:"sorry",vn:"Xin lỗi",ph:"So-ri",ipa:"/ˈsɒri/",img:"https://images.unsplash.com/photo-1514845505178-849cebf1a91d?w=300&h=200&fit=crop",em:"😔"},
+{en:"please",vn:"Vui lòng",ph:"Pli-z",ipa:"/pliːz/",img:"https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=300&h=200&fit=crop",em:"🙏"}],
+vocabTips:["Các em ơi, bài hôm nay cô dạy mấy từ chào hỏi cơ bản nha! Đầu tiên là <b>Hello</b> — Xin chào! 👋 Đọc là /Hê-lâu/. Nếu thân thì nói <b>Hi</b> cho ngắn gọn! Bấm nghe rồi đọc theo cô nha!","Từ thứ hai: <b>Goodbye</b> — Tạm biệt đó các em! 👋 Đọc là /Gút-bai/. Nói nhanh thì chỉ cần <b>Bye</b> là được rồi!","Từ này quan trọng lắm nha: <b>Thank you</b> — Cảm ơn! 🙏 Đọc là /Thenk-kiu/. Ai giúp mình cái gì là nói ngay Thank you, lịch sự lắm!","Tiếp nè: <b>Sorry</b> — Xin lỗi 😔 Đọc là /So-ri/. Va chạm ai, làm sai gì, nói Sorry liền nha các em!","Từ cuối: <b>Please</b> — Vui lòng 🙏 Đọc là /Pli-z/. Thêm Please vào cuối câu nào cũng lịch sự hơn gấp 10 lần!"],
+grammarTips:["Các em ơi, bây giờ cô dạy <b>3 câu giao tiếp</b> mà ngày nào các em cũng sẽ dùng nha! Ai đi đâu gặp người nước ngoài cũng nói được luôn! 🗣️",'<div class="bub-hl">How are you?</div>Các em nghe nè: <b>How are you?</b> nghĩa là <b>Bạn khỏe không?</b> Đọc là /Hao a du?/.<br><br>Khi ai hỏi câu này, các em trả lời: <b>I am fine, thank you!</b> = Tôi khỏe, cảm ơn!<br><br>Cả lớp đọc theo cô nào!','<div class="bub-hl">What is your name?</div>Câu thứ hai nè: <b>What is your name?</b> = <b>Tên bạn là gì?</b> Đọc: /Uốt iz do nêm?/<br><br>Trả lời: <b>My name is Lan.</b> = Tên tôi là Lan.<br><br>Các em thay tên mình vào nhé!','<div class="bub-hl">Nice to meet you!</div>Câu cuối cùng: <b>Nice to meet you!</b> = <b>Rất vui được gặp bạn!</b> Đọc: /Nai-xờ tu mít du!/<br><br>Câu này dùng khi gặp ai lần đầu tiên nha các em!',"Cô cho các em một MẸO cực hay nè: Khi ai hỏi <b>\"How are you?\"</b>, các em KHÔNG CẦN dịch trong đầu đâu. Cứ tự động nói ngay: <b>\"I'm fine, thank you! And you?\"</b> Nói nhiều thành quen luôn! 🔁","Cô tóm lại cho cả lớp nha:<br>🔵 <b>How are you?</b> = Khỏe không?<br>🟢 <b>What is your name?</b> = Tên gì?<br>🟣 <b>Nice to meet you!</b> = Vui gặp bạn!<br><br>Ba câu này phải thuộc nằm lòng nha!","Rồi, cô đã dạy xong lý thuyết! Bây giờ cô <b>phát bài tập</b> cho các em làm. Ai làm đúng hết cô khen! 💪"],
+readQ:[{em:"👋",a:"hello",o:["hello","sorry","please","goodbye"],vn:"Xin chào"},{em:"👋",a:"goodbye",o:["thank you","hello","goodbye","sorry"],vn:"Tạm biệt"},{em:"🙏",a:"thank you",o:["sorry","please","thank you","hello"],vn:"Cảm ơn"},{em:"😔",a:"sorry",o:["hello","sorry","goodbye","please"],vn:"Xin lỗi"},{em:"🙏",a:"please",o:["please","hello","thank you","sorry"],vn:"Vui lòng"}],
+listenQ:[{w:"hello",o:["hello","goodbye","sorry","please"]},{w:"thank you",o:["sorry","thank you","hello","please"]},{w:"goodbye",o:["please","hello","goodbye","sorry"]},{w:"sorry",o:["thank you","sorry","hello","goodbye"]},{w:"please",o:["goodbye","sorry","please","hello"]}],
+writeQ:[{a:["How","are","you"],vn:"Bạn khỏe không?",en:"How are you?",extra:["is","what"]},{a:["I","am","fine"],vn:"Tôi khỏe",en:"I am fine",extra:["are","you"]},{a:["What","is","your","name"],vn:"Tên bạn là gì?",en:"What is your name?",extra:["how"]},{a:["My","name","is","Lan"],vn:"Tên tôi là Lan",en:"My name is Lan",extra:["your"]},{a:["Nice","to","meet","you"],vn:"Rất vui gặp bạn",en:"Nice to meet you",extra:["am"]}],
+speakQ:[{t:"Hello, how are you",vn:"Xin chào, bạn khỏe không",ph:"Hê-lâu, hao a du"},{t:"I am fine, thank you",vn:"Tôi khỏe, cảm ơn",ph:"Ai em phai-n, thenk kiu"},{t:"What is your name",vn:"Tên bạn là gì",ph:"Uốt iz do nêm"},{t:"My name is Lan",vn:"Tên tôi là Lan",ph:"Mai nêm iz Lan"},{t:"Nice to meet you",vn:"Vui gặp bạn",ph:"Nai-xờ tu mít du"}]
+},
+3:{name:"Gia Đình",sub:"Danh từ & Sở hữu",lvl:"A1",icon:"👨‍👩‍👧",
+vocab:[
+{en:"mother",vn:"Mẹ",ph:"Ma-đờ",ipa:"/ˈmʌðər/",img:"https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=300&h=200&fit=crop",em:"👩"},
+{en:"father",vn:"Bố",ph:"Pha-đờ",ipa:"/ˈfɑːðər/",img:"https://images.unsplash.com/photo-1614587185092-af24d0200e80?w=300&h=200&fit=crop",em:"👨"},
+{en:"sister",vn:"Chị/Em gái",ph:"Xít-tờ",ipa:"/ˈsɪstər/",img:"https://images.unsplash.com/photo-1609220361138-2e94dff58070?w=300&h=200&fit=crop",em:"👧"},
+{en:"brother",vn:"Anh/Em trai",ph:"Bra-đờ",ipa:"/ˈbrʌðər/",img:"https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=300&h=200&fit=crop",em:"👦"},
+{en:"family",vn:"Gia đình",ph:"Phe-mờ-li",ipa:"/ˈfæməli/",img:"https://images.unsplash.com/photo-1511895426328-dc8714191300?w=300&h=200&fit=crop",em:"👨‍👩‍👧‍👦"}],
+vocabTips:["<b>Mother</b> — Mẹ. Gọi thân mật là <b>Mom</b>! 👩 /Ma-đờ/.","<b>Father</b> — Bố. Gọi thân mật là <b>Dad</b>! 👨 /Pha-đờ/.","<b>Sister</b> — Chị hoặc Em gái 👧 /Xít-tờ/.","<b>Brother</b> — Anh hoặc Em trai 👦 /Bra-đờ/.","<b>Family</b> — Gia đình. Đây là từ quan trọng nhất! 👨‍👩‍👧‍👦 /Phe-mờ-li/."],
+grammarTips:["Giờ cô dạy em cách nói <b>\"của tôi\", \"của bạn\"</b> — gọi là <b>Tính từ sở hữu</b>! 🏷️","Nhưng tên hàn lâm thì kệ đi, cô chỉ dạy MẸO thôi! 😎",
+'<div class="bub-hl">My = Của tôi</div>Mẹo: <b>\"My\"</b> nghe giống <b>\"Mai\"</b> (tên mình) → của <b>mình</b>! 💡<br><i>My mother = Mẹ của tôi</i>',
+'<div class="bub-hl">Your = Của bạn</div>Mẹo: <b>\"Your\"</b> → <b>\"Do\"</b> bạn sở hữu! 🤝<br><i>Your father = Bố của bạn</i>',
+'<div class="bub-hl">His / Her = Của anh ấy / Của cô ấy</div><b>His</b> = nam (He → His). <b>Her</b> = nữ (She → Her).<br><i>His brother = Anh trai của anh ấy</i><br><i>Her sister = Chị gái của cô ấy</i>',
+"Tóm lại:<br>🔵 <b>My</b> = của tôi<br>🟢 <b>Your</b> = của bạn<br>🟡 <b>His</b> = của anh ấy<br>🟣 <b>Her</b> = của cô ấy",
+"Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"👩",a:"mother",o:["mother","father","sister","family"],vn:"Mẹ"},{em:"👨",a:"father",o:["brother","mother","father","sister"],vn:"Bố"},{em:"👧",a:"sister",o:["sister","mother","family","brother"],vn:"Chị/Em gái"},{em:"👦",a:"brother",o:["father","family","sister","brother"],vn:"Anh/Em trai"},{em:"👨‍👩‍👧‍👦",a:"family",o:["mother","brother","family","father"],vn:"Gia đình"}],
+listenQ:[{w:"mother",o:["mother","father","brother","sister"]},{w:"father",o:["sister","father","family","mother"]},{w:"sister",o:["brother","mother","sister","family"]},{w:"brother",o:["family","brother","father","sister"]},{w:"family",o:["mother","sister","family","brother"]}],
+writeQ:[{a:["This","is","my","mother"],vn:"Đây là mẹ tôi",en:"This is my mother",extra:["your","his"]},{a:["Your","father","is","happy"],vn:"Bố của bạn vui vẻ",en:"Your father is happy",extra:["my","am"]},{a:["Her","sister","is","a","student"],vn:"Chị gái của cô ấy là học sinh",en:"Her sister is a student",extra:["his"]},{a:["His","brother","is","a","teacher"],vn:"Anh trai anh ấy là giáo viên",en:"His brother is a teacher",extra:["her"]},{a:["My","family","is","happy"],vn:"Gia đình tôi vui vẻ",en:"My family is happy",extra:["your","are"]}],
+speakQ:[{t:"This is my mother",vn:"Đây là mẹ tôi",ph:"Đít iz mai ma-đờ"},{t:"Your father is happy",vn:"Bố bạn vui vẻ",ph:"Do pha-đờ iz hép-pi"},{t:"Her sister is a student",vn:"Chị cô ấy là học sinh",ph:"Hơ xít-tờ iz ờ xtiu-đần"},{t:"His brother is a teacher",vn:"Anh ấy là giáo viên",ph:"Hiz bra-đờ iz ờ ti-chờ"},{t:"My family is happy",vn:"Gia đình tôi vui vẻ",ph:"Mai phe-mờ-li iz hép-pi"}]
+},
+4:{name:"Đi Chợ",sub:"Số đếm & Giá cả",lvl:"A2",icon:"🛒",
+vocab:[
+{en:"water",vn:"Nước",ph:"Uo-tờ",ipa:"/ˈwɔːtər/",img:"https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=300&h=200&fit=crop",em:"💧"},
+{en:"rice",vn:"Cơm/Gạo",ph:"Rai-xờ",ipa:"/raɪs/",img:"https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?w=300&h=200&fit=crop",em:"🍚"},
+{en:"money",vn:"Tiền",ph:"Ma-ni",ipa:"/ˈmʌni/",img:"https://images.unsplash.com/photo-1553729459-afe8f2e2e2d0?w=300&h=200&fit=crop",em:"💰"},
+{en:"cheap",vn:"Rẻ",ph:"Chíp",ipa:"/tʃiːp/",img:"https://images.unsplash.com/photo-1607082349566-187342175e2f?w=300&h=200&fit=crop",em:"🏷️"},
+{en:"expensive",vn:"Đắt",ph:"Ek-xpen-xíp",ipa:"/ɪkˈspensɪv/",img:"https://images.unsplash.com/photo-1600003014755-ba31aa59c4b6?w=300&h=200&fit=crop",em:"💎"}],
+vocabTips:["<b>Water</b> — Nước 💧 /Uo-tờ/. Đi đâu cũng cần nước!","<b>Rice</b> — Cơm/Gạo 🍚 /Rai-xờ/. Món chính của Việt Nam mình!","<b>Money</b> — Tiền 💰 /Ma-ni/. No money no honey! 😄","<b>Cheap</b> — Rẻ 🏷️ /Chíp/. Mẹo: Chíp = Chip = Rẻ bèo!","<b>Expensive</b> — Đắt 💎 /Ek-xpen-xíp/. Từ dài = giá cao! 😂"],
+grammarTips:["Giờ cô dạy em <b>ĐẾM SỐ</b> tiếng Anh! 🔢","Siêu dễ! Chỉ cần nhớ 1-10 là xong! 🧠",
+'<div class="bub-hl">1-5: One Two Three Four Five</div>Mẹo nhớ theo nhịp: <b>Oăn-Tu-Thri-Pho-Phai</b> 🎵<br>Đếm theo nhịp rap là nhớ liền!',
+'<div class="bub-hl">6-10: Six Seven Eight Nine Ten</div><b>Xíc-Xe-vần-Ết-Nai-n-Ten</b> 🎵<br>Mẹo: <b>\"Ết\"</b> nghe giống <b>\"8\"</b> tiếng Việt!',
+'<div class="bub-hl">How much? = Bao nhiêu tiền?</div>Câu thần chú đi chợ! /Hao mấc?/<br>Trả lời: <b>It is ten dollars</b> = Nó 10 đô<br><br>Mẹo: <b>\"How much\"</b> = <b>\"Hao mấc\"</b> nghe giống <b>\"Hao mực\"</b> 🐙',
+"Tóm lại:<br>🔢 1-10: <b>One Two Three Four Five Six Seven Eight Nine Ten</b><br>💰 Hỏi giá: <b>How much?</b><br>🏷️ Trả giá: <b>It is cheap!</b> / <b>Too expensive!</b>",
+"Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"💧",a:"water",o:["water","rice","money","cheap"],vn:"Nước"},{em:"🍚",a:"rice",o:["expensive","water","rice","money"],vn:"Cơm/Gạo"},{em:"💰",a:"money",o:["cheap","money","water","rice"],vn:"Tiền"},{em:"🏷️",a:"cheap",o:["money","expensive","water","cheap"],vn:"Rẻ"},{em:"💎",a:"expensive",o:["cheap","rice","expensive","water"],vn:"Đắt"}],
+listenQ:[{w:"water",o:["water","rice","cheap","money"]},{w:"rice",o:["money","rice","water","expensive"]},{w:"money",o:["rice","cheap","money","water"]},{w:"cheap",o:["expensive","water","cheap","rice"]},{w:"expensive",o:["cheap","money","expensive","water"]}],
+writeQ:[{a:["How","much","is","this"],vn:"Cái này bao nhiêu tiền?",en:"How much is this?",extra:["what","are"]},{a:["It","is","cheap"],vn:"Nó rẻ",en:"It is cheap",extra:["expensive","are"]},{a:["Water","is","not","expensive"],vn:"Nước không đắt",en:"Water is not expensive",extra:["cheap","am"]},{a:["I","have","ten","dollars"],vn:"Tôi có 10 đô-la",en:"I have ten dollars",extra:["is","five"]},{a:["Too","expensive"],vn:"Đắt quá!",en:"Too expensive!",extra:["cheap","is","very"]}],
+speakQ:[{t:"How much is this",vn:"Cái này bao nhiêu?",ph:"Hao mấc iz đít"},{t:"It is cheap",vn:"Nó rẻ",ph:"It iz chíp"},{t:"Water is not expensive",vn:"Nước không đắt",ph:"Uo-tờ iz nót ek-xpen-xíp"},{t:"I have ten dollars",vn:"Tôi có 10 đô-la",ph:"Ai hév ten đo-lờ-z"},{t:"Too expensive",vn:"Đắt quá!",ph:"Tu ek-xpen-xíp"}]
+},
+5:{name:"Hỏi Đường",sub:"Giới từ & Chỉ đường",lvl:"A2",icon:"🗺️",
+vocab:[
+{en:"left",vn:"Bên trái",ph:"Léft",ipa:"/left/",img:"https://images.unsplash.com/photo-1524661135-423995f22d0b?w=300&h=200&fit=crop",em:"⬅️"},
+{en:"right",vn:"Bên phải",ph:"Rai-t",ipa:"/raɪt/",img:"https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=300&h=200&fit=crop",em:"➡️"},
+{en:"straight",vn:"Thẳng",ph:"Xtrết",ipa:"/streɪt/",img:"https://images.unsplash.com/photo-1476231682828-37e571bc172f?w=300&h=200&fit=crop",em:"⬆️"},
+{en:"near",vn:"Gần",ph:"Nia",ipa:"/nɪr/",img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&h=200&fit=crop",em:"📍"},
+{en:"far",vn:"Xa",ph:"Pha",ipa:"/fɑːr/",img:"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300&h=200&fit=crop",em:"🏔️"}],
+vocabTips:["<b>Left</b> — Bên trái ⬅️ /Léft/.","<b>Right</b> — Bên phải ➡️ /Rai-t/. Cũng có nghĩa là \"đúng\"!","<b>Straight</b> — Thẳng ⬆️ /Xtrết/. Go straight = Đi thẳng!","<b>Near</b> — Gần 📍 /Nia/. Near here = Gần đây.","<b>Far</b> — Xa 🏔️ /Pha/. Is it far? = Có xa không?"],
+grammarTips:["Cô dạy em hỏi đường — kỹ năng SỐNG CÒN khi đi du lịch! 🗺️","Chỉ cần 2 câu thần chú! 🧠",
+'<div class="bub-hl">Where is...? = ...ở đâu?</div>/Ue-rờ iz...?/<br><b>Where is the hotel?</b> = Khách sạn ở đâu?<br><b>Where is the bank?</b> = Ngân hàng ở đâu?',
+'<div class="bub-hl">Go straight, turn left/right</div><b>Go straight</b> = Đi thẳng<br><b>Turn left</b> = Rẽ trái<br><b>Turn right</b> = Rẽ phải<br>Mẹo: <b>\"Turn\"</b> = Quay/Rẽ',
+'<div class="bub-hl">Giới từ: in / on / at</div><b>in</b> = ở trong (in the room, in Vietnam)<br><b>on</b> = ở trên (on the table, on the street)<br><b>at</b> = ở tại (at school, at home)<br>Mẹo: <b>in</b> = trong hộp 📦, <b>on</b> = trên mặt 📱, <b>at</b> = tại điểm 📍',
+"Tóm lại:<br>❓ <b>Where is...?</b> = Hỏi ở đâu<br>➡️ <b>Go straight / Turn left / Turn right</b><br>📍 <b>in / on / at</b> = trong / trên / tại","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"⬅️",a:"left",o:["left","right","straight","far"],vn:"Bên trái"},{em:"➡️",a:"right",o:["near","left","right","straight"],vn:"Bên phải"},{em:"⬆️",a:"straight",o:["straight","far","left","near"],vn:"Thẳng"},{em:"📍",a:"near",o:["far","straight","right","near"],vn:"Gần"},{em:"🏔️",a:"far",o:["near","left","far","right"],vn:"Xa"}],
+listenQ:[{w:"left",o:["left","right","near","far"]},{w:"right",o:["straight","right","left","near"]},{w:"straight",o:["far","left","straight","right"]},{w:"near",o:["near","far","straight","left"]},{w:"far",o:["right","near","left","far"]}],
+writeQ:[{a:["Where","is","the","hotel"],vn:"Khách sạn ở đâu?",en:"Where is the hotel?",extra:["how","are"]},{a:["Go","straight","and","turn","left"],vn:"Đi thẳng rồi rẽ trái",en:"Go straight and turn left",extra:["right"]},{a:["It","is","near","here"],vn:"Nó ở gần đây",en:"It is near here",extra:["far","are"]},{a:["Turn","right","at","the","bank"],vn:"Rẽ phải tại ngân hàng",en:"Turn right at the bank",extra:["left","in"]},{a:["The","school","is","far"],vn:"Trường học thì xa",en:"The school is far",extra:["near","are"]}],
+speakQ:[{t:"Where is the hotel",vn:"Khách sạn ở đâu?",ph:"Ue-rờ iz đờ hâu-teo"},{t:"Go straight and turn left",vn:"Đi thẳng rồi rẽ trái",ph:"Gâu xtrết en tơn léft"},{t:"It is near here",vn:"Nó gần đây",ph:"It iz nia hia"},{t:"Turn right at the bank",vn:"Rẽ phải tại ngân hàng",ph:"Tơn rai-t ét đờ benk"},{t:"Is it far from here",vn:"Có xa đây không?",ph:"Iz it pha phờ-rom hia"}]
+},
+6:{name:"Nhà Hàng",sub:"Gọi món & Lịch sự",lvl:"A2",icon:"🍽️",
+vocab:[
+{en:"breakfast",vn:"Bữa sáng",ph:"Brék-phớt",ipa:"/ˈbrekfəst/",img:"https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=300&h=200&fit=crop",em:"🍳"},
+{en:"lunch",vn:"Bữa trưa",ph:"Lân-ch",ipa:"/lʌntʃ/",img:"https://images.unsplash.com/photo-1547592180-85f173990554?w=300&h=200&fit=crop",em:"🥗"},
+{en:"dinner",vn:"Bữa tối",ph:"Đi-nờ",ipa:"/ˈdɪnər/",img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=200&fit=crop",em:"🍽️"},
+{en:"delicious",vn:"Ngon",ph:"Đi-lí-shớt",ipa:"/dɪˈlɪʃəs/",img:"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&h=200&fit=crop",em:"😋"},
+{en:"menu",vn:"Thực đơn",ph:"Men-niu",ipa:"/ˈmenjuː/",img:"https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop",em:"📋"}],
+vocabTips:["<b>Breakfast</b> — Bữa sáng 🍳 /Brék-phớt/. Break + fast = Phá vỡ cơn đói!","<b>Lunch</b> — Bữa trưa 🥗 /Lân-ch/.","<b>Dinner</b> — Bữa tối 🍽️ /Đi-nờ/.","<b>Delicious</b> — Ngon 😋 /Đi-lí-shớt/. Khen đồ ăn ngon = \"It is delicious!\"","<b>Menu</b> — Thực đơn 📋 /Men-niu/. Can I see the menu? = Cho xem thực đơn?"],
+grammarTips:["Vào nhà hàng em nói gì? Cô dạy <b>cách gọi món lịch sự</b>! 🍽️","Chỉ cần nhớ 2 mẫu câu! 🧠",
+'<div class="bub-hl">I would like... = Tôi muốn...</div>Phát âm: /Ai wút lai-k.../<br>Viết tắt: <b>I\'d like...</b><br><i>I would like some water</i> = Tôi muốn nước<br><br>Mẹo: Đây là cách lịch sự nhất để gọi món!',
+'<div class="bub-hl">Can I have...? = Cho tôi... được không?</div>/Ken ai hév...?/<br><i>Can I have the menu?</i> = Cho tôi xem thực đơn?<br><i>Can I have the bill?</i> = Cho tôi tính tiền?',
+'<div class="bub-hl">some / any</div><b>some</b> = một ít (câu khẳng định): <i>I have <b>some</b> water</i><br><b>any</b> = chút nào (câu hỏi/phủ định): <i>Do you have <b>any</b> rice?</i><br>Mẹo: <b>some</b> = có sẵn ✅, <b>any</b> = hỏi xem có không ❓',
+"Tóm lại:<br>🍽️ <b>I would like...</b> = Tôi muốn...<br>🙋 <b>Can I have...?</b> = Cho tôi...?<br>✅ <b>some</b> (có) / <b>any</b> (hỏi)","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"🍳",a:"breakfast",o:["breakfast","lunch","dinner","menu"],vn:"Bữa sáng"},{em:"🥗",a:"lunch",o:["dinner","lunch","breakfast","delicious"],vn:"Bữa trưa"},{em:"🍽️",a:"dinner",o:["menu","breakfast","lunch","dinner"],vn:"Bữa tối"},{em:"😋",a:"delicious",o:["delicious","menu","breakfast","lunch"],vn:"Ngon"},{em:"📋",a:"menu",o:["lunch","dinner","delicious","menu"],vn:"Thực đơn"}],
+listenQ:[{w:"breakfast",o:["breakfast","dinner","lunch","menu"]},{w:"lunch",o:["dinner","lunch","delicious","breakfast"]},{w:"dinner",o:["menu","breakfast","dinner","lunch"]},{w:"delicious",o:["lunch","delicious","menu","dinner"]},{w:"menu",o:["breakfast","dinner","menu","delicious"]}],
+writeQ:[{a:["I","would","like","some","water"],vn:"Tôi muốn nước",en:"I would like some water",extra:["any","have"]},{a:["Can","I","have","the","menu"],vn:"Cho tôi xem thực đơn",en:"Can I have the menu?",extra:["would","some"]},{a:["This","is","delicious"],vn:"Cái này ngon",en:"This is delicious",extra:["are","very"]},{a:["Can","I","have","the","bill"],vn:"Cho tôi tính tiền",en:"Can I have the bill?",extra:["menu","would"]},{a:["Do","you","have","any","rice"],vn:"Bạn có cơm không?",en:"Do you have any rice?",extra:["some","is"]}],
+speakQ:[{t:"I would like some water",vn:"Tôi muốn nước",ph:"Ai wút lai-k xam uo-tờ"},{t:"Can I have the menu",vn:"Cho tôi xem thực đơn",ph:"Ken ai hév đờ men-niu"},{t:"This is delicious",vn:"Cái này ngon",ph:"Đít iz đi-lí-shớt"},{t:"Can I have the bill",vn:"Cho tôi tính tiền",ph:"Ken ai hév đờ bil"},{t:"Do you have any rice",vn:"Bạn có cơm không?",ph:"Đu du hév e-ni rai-xờ"}]
+},
+7:{name:"Hàng Ngày",sub:"Thì Hiện Tại Đơn",lvl:"B1",icon:"📅",
+vocab:[
+{en:"always",vn:"Luôn luôn",ph:"Ol-uê-z",ipa:"/ˈɔːlweɪz/",img:"https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=300&h=200&fit=crop",em:"🔄"},
+{en:"sometimes",vn:"Thỉnh thoảng",ph:"Xam-thai-mz",ipa:"/ˈsʌmtaɪmz/",img:"https://images.unsplash.com/photo-1501139083538-0139583c060f?w=300&h=200&fit=crop",em:"🎲"},
+{en:"never",vn:"Không bao giờ",ph:"Ne-vờ",ipa:"/ˈnevər/",img:"https://images.unsplash.com/photo-1489533119213-66a5cd877091?w=300&h=200&fit=crop",em:"🚫"},
+{en:"work",vn:"Làm việc",ph:"Uơk",ipa:"/wɜːrk/",img:"https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=300&h=200&fit=crop",em:"💼"},
+{en:"sleep",vn:"Ngủ",ph:"Xlíp",ipa:"/sliːp/",img:"https://images.unsplash.com/photo-1541480601022-2308c0f02487?w=300&h=200&fit=crop",em:"😴"}],
+vocabTips:["<b>Always</b> — Luôn luôn 🔄 /Ol-uê-z/. 100% thời gian!","<b>Sometimes</b> — Thỉnh thoảng 🎲 /Xam-thai-mz/. Lúc có lúc không.","<b>Never</b> — Không bao giờ 🚫 /Ne-vờ/. 0% thời gian!","<b>Work</b> — Làm việc 💼 /Uơk/. I work every day = Tôi làm việc mỗi ngày.","<b>Sleep</b> — Ngủ 😴 /Xlíp/. I sleep at 10 PM = Tôi ngủ lúc 10 tối."],
+grammarTips:["Giờ cô dạy em <b>Thì Hiện Tại Đơn</b> — thì em dùng NHIỀU NHẤT! 📅","Thì này dùng khi nói về <b>thói quen, lịch trình, sự thật</b>. 🧠",
+'<div class="bub-hl">I/You/We/They + V nguyên</div><i>I <b>work</b> every day</i> = Tôi làm việc mỗi ngày<br><i>They <b>eat</b> rice</i> = Họ ăn cơm<br>Mẹo: Nhóm \"nhiều\" → giữ nguyên động từ!',
+'<div class="bub-hl">He/She/It + V thêm s/es</div><i>He <b>works</b> every day</i> = Anh ấy làm mỗi ngày<br><i>She <b>eats</b> rice</i> = Cô ấy ăn cơm<br>Mẹo: 1 người → thêm <b>s</b>! Giống thêm \"áo choàng\" cho động từ! 🧥',
+'<div class="bub-hl">Phủ định: don\'t / doesn\'t</div><i>I <b>don\'t</b> like coffee</i> = Tôi không thích cà phê<br><i>She <b>doesn\'t</b> like tea</i> = Cô ấy không thích trà<br>Mẹo: <b>don\'t</b> = \"đôn(g) thích\" 🙅',
+"Trạng từ tần suất:<br>🟢 <b>always</b> (100%) > <b>usually</b> (80%) > <b>sometimes</b> (50%) > <b>never</b> (0%)<br>Đặt TRƯỚC động từ: <i>I <b>always</b> eat breakfast</i>","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"🔄",a:"always",o:["always","sometimes","never","work"],vn:"Luôn luôn"},{em:"🎲",a:"sometimes",o:["never","always","sometimes","sleep"],vn:"Thỉnh thoảng"},{em:"🚫",a:"never",o:["sometimes","work","always","never"],vn:"Không bao giờ"},{em:"💼",a:"work",o:["sleep","work","never","always"],vn:"Làm việc"},{em:"😴",a:"sleep",o:["work","never","sometimes","sleep"],vn:"Ngủ"}],
+listenQ:[{w:"always",o:["always","never","sometimes","work"]},{w:"sometimes",o:["always","sometimes","work","sleep"]},{w:"never",o:["sometimes","sleep","never","always"]},{w:"work",o:["sleep","never","work","sometimes"]},{w:"sleep",o:["work","always","sometimes","sleep"]}],
+writeQ:[{a:["I","always","eat","breakfast"],vn:"Tôi luôn ăn sáng",en:"I always eat breakfast",extra:["never","eats"]},{a:["She","works","every","day"],vn:"Cô ấy làm mỗi ngày",en:"She works every day",extra:["work","always"]},{a:["They","never","sleep","late"],vn:"Họ không bao giờ ngủ muộn",en:"They never sleep late",extra:["sleeps","always"]},{a:["He","doesn't","like","coffee"],vn:"Anh ấy không thích cà phê",en:"He doesn't like coffee",extra:["don't","likes"]},{a:["Do","you","work","on","Sunday"],vn:"Bạn làm việc Chủ nhật không?",en:"Do you work on Sunday?",extra:["does","works"]}],
+speakQ:[{t:"I always eat breakfast",vn:"Tôi luôn ăn sáng",ph:"Ai ol-uê-z ít brék-phớt"},{t:"She works every day",vn:"Cô ấy làm mỗi ngày",ph:"Si uơk-s é-vờ-ri đây"},{t:"They never sleep late",vn:"Họ không bao giờ ngủ muộn",ph:"Đây ne-vờ xlíp lết"},{t:"He doesn't like coffee",vn:"Anh ấy không thích cà phê",ph:"Hi đa-zần lai-k co-phi"},{t:"Do you work on Sunday",vn:"Bạn làm CN không?",ph:"Đu du uơk on xan-đây"}]
+},
+8:{name:"Du Lịch",sub:"Thì Quá Khứ Đơn",lvl:"B1",icon:"✈️",
+vocab:[
+{en:"yesterday",vn:"Hôm qua",ph:"Yé-xtờ-đây",ipa:"/ˈjestərdeɪ/",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop",em:"📆"},
+{en:"visited",vn:"Đã thăm",ph:"Ví-zi-tịd",ipa:"/ˈvɪzɪtɪd/",img:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&h=200&fit=crop",em:"🏛️"},
+{en:"beautiful",vn:"Đẹp",ph:"Biu-ti-phồ",ipa:"/ˈbjuːtɪfəl/",img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=300&h=200&fit=crop",em:"🌅"},
+{en:"traveled",vn:"Đã đi du lịch",ph:"Tré-vồ-đ",ipa:"/ˈtrævəld/",img:"https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=300&h=200&fit=crop",em:"🧳"},
+{en:"enjoyed",vn:"Đã thích/thưởng thức",ph:"En-joi-đ",ipa:"/ɪnˈdʒɔɪd/",img:"https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=300&h=200&fit=crop",em:"🎉"}],
+vocabTips:["<b>Yesterday</b> — Hôm qua 📆 /Yé-xtờ-đây/.","<b>Visited</b> — Đã thăm/viếng 🏛️ /Ví-zi-tịd/. I visited Hanoi = Tôi đã thăm Hà Nội.","<b>Beautiful</b> — Đẹp 🌅 /Biu-ti-phồ/. It was beautiful! = Nó đẹp lắm!","<b>Traveled</b> — Đã đi du lịch 🧳 /Tré-vồ-đ/.","<b>Enjoyed</b> — Đã thích/thưởng thức 🎉 /En-joi-đ/. I enjoyed it! = Tôi thích lắm!"],
+grammarTips:["Cô dạy em <b>Thì Quá Khứ Đơn</b> — kể chuyện đã xảy ra! ✈️","Quá khứ = thêm <b>-ed</b> vào cuối động từ. Nhưng có nhiều ngoại lệ! 🧠",
+'<div class="bub-hl">V thường: thêm -ed</div><i>I <b>visited</b> Hanoi</i> = Tôi đã thăm HN<br><i>She <b>traveled</b> to Japan</i> = Cô ấy đã đi Nhật<br>Mẹo: <b>-ed</b> = \"dấu vết\" quá khứ! 🐾',
+'<div class="bub-hl">V bất quy tắc (phải nhớ!)</div><b>go → went</b> (đi → đã đi)<br><b>eat → ate</b> (ăn → đã ăn)<br><b>see → saw</b> (nhìn → đã nhìn)<br><b>have → had</b> (có → đã có)<br><b>buy → bought</b> (mua → đã mua)',
+'<div class="bub-hl">was / were (quá khứ của am/is/are)</div><b>I/He/She/It → was</b><br><b>You/We/They → were</b><br><i>It <b>was</b> beautiful</i> = Nó đẹp lắm<br><i>They <b>were</b> happy</i> = Họ vui lắm',
+"Phủ định: <b>didn\'t + V nguyên</b><br><i>I <b>didn\'t go</b> to school</i> = Tôi không đi học<br>Câu hỏi: <b>Did + S + V nguyên?</b><br><i><b>Did</b> you <b>eat</b>?</i> = Bạn ăn chưa?","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"📆",a:"yesterday",o:["yesterday","tomorrow","always","today"],vn:"Hôm qua"},{em:"🏛️",a:"visited",o:["traveled","visited","enjoyed","worked"],vn:"Đã thăm"},{em:"🌅",a:"beautiful",o:["delicious","expensive","beautiful","happy"],vn:"Đẹp"},{em:"🧳",a:"traveled",o:["visited","enjoyed","worked","traveled"],vn:"Đã du lịch"},{em:"🎉",a:"enjoyed",o:["enjoyed","traveled","visited","beautiful"],vn:"Đã thưởng thức"}],
+listenQ:[{w:"yesterday",o:["yesterday","tomorrow","today","always"]},{w:"visited",o:["traveled","enjoyed","visited","worked"]},{w:"beautiful",o:["delicious","beautiful","expensive","happy"]},{w:"traveled",o:["visited","traveled","enjoyed","worked"]},{w:"enjoyed",o:["traveled","visited","enjoyed","beautiful"]}],
+writeQ:[{a:["I","visited","Hanoi","yesterday"],vn:"Hôm qua tôi đã thăm Hà Nội",en:"I visited Hanoi yesterday",extra:["visit","tomorrow"]},{a:["It","was","very","beautiful"],vn:"Nó rất đẹp",en:"It was very beautiful",extra:["is","were"]},{a:["We","traveled","to","Japan"],vn:"Chúng tôi đã đi Nhật",en:"We traveled to Japan",extra:["travel","is"]},{a:["She","didn't","go","to","school"],vn:"Cô ấy không đi học",en:"She didn't go to school",extra:["went","don't"]},{a:["Did","you","enjoy","the","trip"],vn:"Bạn thích chuyến đi không?",en:"Did you enjoy the trip?",extra:["enjoyed","do"]}],
+speakQ:[{t:"I visited Hanoi yesterday",vn:"Hôm qua tôi thăm HN",ph:"Ai ví-zi-tịd Hà Nội yé-xtờ-đây"},{t:"It was very beautiful",vn:"Nó rất đẹp",ph:"It uoz ve-ri biu-ti-phồ"},{t:"We traveled to Japan",vn:"Chúng tôi đi Nhật",ph:"Uy tré-vồ-đ tu Jờ-pen"},{t:"She didn't go to school",vn:"Cô ấy không đi học",ph:"Si đi-đần gâu tu xkul"},{t:"Did you enjoy the trip",vn:"Bạn thích chuyến đi không?",ph:"Đít du en-joi đờ tríp"}]
+},
+9:{name:"Sức Khỏe",sub:"Can/Should/Must",lvl:"B1",icon:"🏥",
+vocab:[
+{en:"headache",vn:"Đau đầu",ph:"Hét-ếch",ipa:"/ˈhedeɪk/",img:"https://images.unsplash.com/photo-1616012480717-fd9867059ca0?w=300&h=200&fit=crop",em:"🤕"},
+{en:"medicine",vn:"Thuốc",ph:"Mé-đi-xần",ipa:"/ˈmedɪsən/",img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=200&fit=crop",em:"💊"},
+{en:"hospital",vn:"Bệnh viện",ph:"Ho-xpí-tồ",ipa:"/ˈhɒspɪtəl/",img:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=300&h=200&fit=crop",em:"🏥"},
+{en:"exercise",vn:"Tập thể dục",ph:"Ék-xờ-xai-z",ipa:"/ˈeksərsaɪz/",img:"https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=200&fit=crop",em:"🏃"},
+{en:"healthy",vn:"Khỏe mạnh",ph:"Heo-đi",ipa:"/ˈhelθi/",img:"https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&h=200&fit=crop",em:"💪"}],
+vocabTips:["<b>Headache</b> — Đau đầu 🤕 /Hét-ếch/. Head (đầu) + ache (đau).","<b>Medicine</b> — Thuốc 💊 /Mé-đi-xần/.","<b>Hospital</b> — Bệnh viện 🏥 /Ho-xpí-tồ/.","<b>Exercise</b> — Tập thể dục 🏃 /Ék-xờ-xai-z/.","<b>Healthy</b> — Khỏe mạnh 💪 /Heo-đi/."],
+grammarTips:["Cô dạy em <b>3 từ quyền lực</b>: can, should, must! 💪","Ba từ này đặt TRƯỚC động từ, không chia! 🧠",
+'<div class="bub-hl">CAN = Có thể</div><i>I <b>can</b> swim</i> = Tôi biết bơi<br><i><b>Can</b> you help me?</i> = Bạn giúp được không?<br>Phủ định: <b>can\'t</b> = không thể',
+'<div class="bub-hl">SHOULD = Nên</div><i>You <b>should</b> see a doctor</i> = Bạn nên đi bác sĩ<br><i>You <b>shouldn\'t</b> eat too much</i> = Không nên ăn nhiều<br>Mẹo: <b>Should</b> = Lời khuyên nhẹ nhàng 🤝',
+'<div class="bub-hl">MUST = Phải (bắt buộc)</div><i>You <b>must</b> take medicine</i> = Bạn phải uống thuốc<br><i>You <b>must not</b> smoke</i> = Cấm hút thuốc!<br>Mẹo: <b>Must</b> = Mệnh lệnh! 🚨',
+"Tóm lại:<br>🟢 <b>can</b> = có thể (khả năng)<br>🟡 <b>should</b> = nên (khuyên)<br>🔴 <b>must</b> = phải (bắt buộc)","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"🤕",a:"headache",o:["headache","medicine","hospital","exercise"],vn:"Đau đầu"},{em:"💊",a:"medicine",o:["healthy","headache","medicine","hospital"],vn:"Thuốc"},{em:"🏥",a:"hospital",o:["medicine","hospital","exercise","headache"],vn:"Bệnh viện"},{em:"🏃",a:"exercise",o:["hospital","healthy","headache","exercise"],vn:"Tập thể dục"},{em:"💪",a:"healthy",o:["exercise","medicine","healthy","hospital"],vn:"Khỏe mạnh"}],
+listenQ:[{w:"headache",o:["headache","hospital","medicine","healthy"]},{w:"medicine",o:["exercise","medicine","headache","hospital"]},{w:"hospital",o:["medicine","healthy","hospital","exercise"]},{w:"exercise",o:["headache","exercise","hospital","medicine"]},{w:"healthy",o:["exercise","hospital","medicine","healthy"]}],
+writeQ:[{a:["You","should","see","a","doctor"],vn:"Bạn nên đi bác sĩ",en:"You should see a doctor",extra:["must","can"]},{a:["I","can","not","sleep"],vn:"Tôi không ngủ được",en:"I can not sleep",extra:["should","must"]},{a:["She","must","take","medicine"],vn:"Cô ấy phải uống thuốc",en:"She must take medicine",extra:["should","can"]},{a:["You","should","exercise","every","day"],vn:"Bạn nên tập mỗi ngày",en:"You should exercise every day",extra:["must","can"]},{a:["He","can","not","go","to","work"],vn:"Anh ấy không đi làm được",en:"He can not go to work",extra:["should","must"]}],
+speakQ:[{t:"You should see a doctor",vn:"Bạn nên đi bác sĩ",ph:"Du shút xi ờ đóc-tờ"},{t:"I can not sleep",vn:"Tôi không ngủ được",ph:"Ai ken nót xlíp"},{t:"She must take medicine",vn:"Cô ấy phải uống thuốc",ph:"Si mớt tếch mé-đi-xần"},{t:"You should exercise every day",vn:"Bạn nên tập mỗi ngày",ph:"Du shút ék-xờ-xai-z é-vờ-ri đây"},{t:"I have a headache",vn:"Tôi bị đau đầu",ph:"Ai hév ờ hét-ếch"}]
+},
+10:{name:"Kế Hoạch",sub:"Thì Tương Lai",lvl:"B1",icon:"🎯",
+vocab:[
+{en:"tomorrow",vn:"Ngày mai",ph:"Tu-mo-râu",ipa:"/təˈmɒroʊ/",img:"https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=300&h=200&fit=crop",em:"📅"},
+{en:"plan",vn:"Kế hoạch",ph:"Plen",ipa:"/plæn/",img:"https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=300&h=200&fit=crop",em:"📋"},
+{en:"meeting",vn:"Cuộc họp",ph:"Mí-ting",ipa:"/ˈmiːtɪŋ/",img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=200&fit=crop",em:"🤝"},
+{en:"project",vn:"Dự án",ph:"Pro-dzhéc-t",ipa:"/ˈprɒdʒekt/",img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop",em:"📊"},
+{en:"dream",vn:"Ước mơ",ph:"Đri-m",ipa:"/driːm/",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",em:"💭"}],
+vocabTips:["<b>Tomorrow</b> — Ngày mai 📅 /Tu-mo-râu/.","<b>Plan</b> — Kế hoạch 📋 /Plen/. What is your plan? = Kế hoạch gì?","<b>Meeting</b> — Cuộc họp 🤝 /Mí-ting/. I have a meeting = Tôi có cuộc họp.","<b>Project</b> — Dự án 📊 /Pro-dzhéc-t/.","<b>Dream</b> — Ước mơ/Giấc mơ 💭 /Đri-m/."],
+grammarTips:["Giờ cô dạy em nói về <b>TƯƠNG LAI</b> — chuyện SẮP XẢY RA! 🎯","Có 2 cách nói tương lai! 🧠",
+'<div class="bub-hl">WILL + V = Sẽ (quyết định ngay)</div><i>I <b>will</b> help you</i> = Tôi sẽ giúp bạn<br><i><b>Will</b> you come?</i> = Bạn sẽ đến chứ?<br>Viết tắt: <b>I\'ll, he\'ll, she\'ll</b><br>Mẹo: <b>will</b> = quyết ngay tại chỗ! ⚡',
+'<div class="bub-hl">BE GOING TO + V = Sắp/Định (đã lên kế hoạch)</div><i>I <b>am going to</b> travel</i> = Tôi định đi du lịch<br><i>She <b>is going to</b> study</i> = Cô ấy sắp học<br>Mẹo: <b>going to</b> = đã plan sẵn! 📋',
+'<div class="bub-hl">Phân biệt Will vs Going to</div>🔵 <b>Will</b>: Quyết ngay (Trời mưa! I <b>will</b> take umbrella!)<br>🟢 <b>Going to</b>: Đã lên kế hoạch (Tối nay I <b>am going to</b> cook)<br><br>Nói đơn giản: <b>Will = Bất chợt, Going to = Đã tính trước</b>',
+"Tóm lại:<br>⚡ <b>will</b> = sẽ (quyết ngay)<br>📋 <b>going to</b> = sắp/định (đã tính)<br>❌ <b>won\'t</b> = sẽ không","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"📅",a:"tomorrow",o:["tomorrow","yesterday","always","today"],vn:"Ngày mai"},{em:"📋",a:"plan",o:["meeting","dream","plan","project"],vn:"Kế hoạch"},{em:"🤝",a:"meeting",o:["project","plan","dream","meeting"],vn:"Cuộc họp"},{em:"📊",a:"project",o:["meeting","project","plan","dream"],vn:"Dự án"},{em:"💭",a:"dream",o:["plan","meeting","project","dream"],vn:"Ước mơ"}],
+listenQ:[{w:"tomorrow",o:["tomorrow","yesterday","today","always"]},{w:"plan",o:["dream","plan","meeting","project"]},{w:"meeting",o:["plan","project","meeting","dream"]},{w:"project",o:["meeting","dream","project","plan"]},{w:"dream",o:["project","meeting","plan","dream"]}],
+writeQ:[{a:["I","will","help","you"],vn:"Tôi sẽ giúp bạn",en:"I will help you",extra:["going","am"]},{a:["She","is","going","to","study"],vn:"Cô ấy sắp học",en:"She is going to study",extra:["will","studied"]},{a:["We","will","have","a","meeting"],vn:"Chúng tôi sẽ có cuộc họp",en:"We will have a meeting",extra:["going","had"]},{a:["He","is","going","to","travel"],vn:"Anh ấy định đi du lịch",en:"He is going to travel",extra:["will","traveled"]},{a:["I","will","not","be","late"],vn:"Tôi sẽ không trễ",en:"I will not be late",extra:["going","was"]}],
+speakQ:[{t:"I will help you",vn:"Tôi sẽ giúp bạn",ph:"Ai uil heo-p du"},{t:"She is going to study",vn:"Cô ấy sắp học",ph:"Si iz gâu-ing tu xtơ-đi"},{t:"We will have a meeting tomorrow",vn:"Mai ta sẽ họp",ph:"Uy uil hév ờ mí-ting tu-mo-râu"},{t:"I am going to travel to Japan",vn:"Tôi định đi Nhật",ph:"Ai em gâu-ing tu tré-vồ tu Jờ-pen"},{t:"I will not be late",vn:"Tôi sẽ không trễ",ph:"Ai uil nót bi lết"}]
+},
+11:{name:"Công Việc",sub:"Thì Hiện Tại Hoàn Thành",lvl:"B2",icon:"💼",
+vocab:[
+{en:"experience",vn:"Kinh nghiệm",ph:"Ek-xpia-ri-ần-xờ",ipa:"/ɪkˈspɪriəns/",img:"https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=300&h=200&fit=crop",em:"📝"},
+{en:"interview",vn:"Phỏng vấn",ph:"In-tờ-viu",ipa:"/ˈɪntərvjuː/",img:"https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=300&h=200&fit=crop",em:"🎤"},
+{en:"company",vn:"Công ty",ph:"Cam-pờ-ni",ipa:"/ˈkʌmpəni/",img:"https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=300&h=200&fit=crop",em:"🏢"},
+{en:"salary",vn:"Lương",ph:"Se-lờ-ri",ipa:"/ˈsæləri/",img:"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=300&h=200&fit=crop",em:"💰"},
+{en:"already",vn:"Đã rồi",ph:"Ol-ré-đi",ipa:"/ɔːlˈredi/",img:"https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&h=200&fit=crop",em:"✅"}],
+vocabTips:["<b>Experience</b> — Kinh nghiệm 📝 /Ek-xpia-ri-ần-xờ/. I have 5 years of experience.","<b>Interview</b> — Phỏng vấn 🎤 /In-tờ-viu/.","<b>Company</b> — Công ty 🏢 /Cam-pờ-ni/.","<b>Salary</b> — Lương 💰 /Se-lờ-ri/.","<b>Already</b> — Đã rồi ✅ /Ol-ré-đi/. I have already finished = Tôi đã xong rồi."],
+grammarTips:["Đây là thì KHÓ NHẤT nhưng QUAN TRỌNG NHẤT cho B2! 💼","Thì <b>Hiện Tại Hoàn Thành</b> = đã làm, kinh nghiệm, vẫn còn hiệu lực! 🧠",
+'<div class="bub-hl">have/has + V3 (past participle)</div><i>I <b>have worked</b> for 5 years</i> = Tôi đã làm 5 năm<br><i>She <b>has visited</b> Japan</i> = Cô ấy đã đến Nhật (từng)<br>Mẹo: <b>have + V3</b> = \"đã\" nhưng vẫn liên quan đến hiện tại!',
+'<div class="bub-hl">Dấu hiệu: already, yet, ever, never, since, for</div><b>already</b> = đã rồi: <i>I have <b>already</b> eaten</i><br><b>yet</b> = chưa (hỏi/phủ định): <i>Have you finished <b>yet</b>?</i><br><b>ever</b> = đã bao giờ: <i>Have you <b>ever</b> been to Paris?</i><br><b>for/since</b> = trong/từ khi: <i>I have lived here <b>for</b> 3 years / <b>since</b> 2020</i>',
+'<div class="bub-hl">Phân biệt: Quá Khứ Đơn vs HTHT</div>🔵 Quá khứ đơn: Đã xong, thời gian rõ<br><i>I <b>visited</b> Japan <b>last year</b></i> (năm ngoái - xong rồi)<br><br>🟢 HTHT: Kinh nghiệm, không rõ khi nào<br><i>I <b>have visited</b> Japan</i> (từng đến - không nói khi nào)',
+"Tóm lại:<br>✅ <b>have/has + V3</b> = đã (kinh nghiệm, vẫn hiệu lực)<br>🔑 Dấu hiệu: <b>already, yet, ever, never, for, since</b><br>⚡ Khác QKĐ: không có thời gian cụ thể","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"📝",a:"experience",o:["experience","interview","company","salary"],vn:"Kinh nghiệm"},{em:"🎤",a:"interview",o:["company","experience","interview","salary"],vn:"Phỏng vấn"},{em:"🏢",a:"company",o:["salary","company","interview","experience"],vn:"Công ty"},{em:"💰",a:"salary",o:["company","experience","salary","interview"],vn:"Lương"},{em:"✅",a:"already",o:["never","yet","already","ever"],vn:"Đã rồi"}],
+listenQ:[{w:"experience",o:["experience","company","salary","interview"]},{w:"interview",o:["company","interview","experience","salary"]},{w:"company",o:["salary","experience","company","interview"]},{w:"salary",o:["interview","salary","company","experience"]},{w:"already",o:["never","already","yet","ever"]}],
+writeQ:[{a:["I","have","worked","for","five","years"],vn:"Tôi đã làm 5 năm",en:"I have worked for five years",extra:["has","working"]},{a:["She","has","already","finished"],vn:"Cô ấy đã xong rồi",en:"She has already finished",extra:["have","yet"]},{a:["Have","you","ever","been","to","Japan"],vn:"Bạn từng đến Nhật chưa?",en:"Have you ever been to Japan?",extra:["has","never"]},{a:["I","have","not","eaten","yet"],vn:"Tôi chưa ăn",en:"I have not eaten yet",extra:["already","has"]},{a:["He","has","lived","here","since","2020"],vn:"Anh ấy sống đây từ 2020",en:"He has lived here since 2020",extra:["have","for"]}],
+speakQ:[{t:"I have worked for five years",vn:"Tôi đã làm 5 năm",ph:"Ai hév uơk-t pho phai-v dia-z"},{t:"She has already finished",vn:"Cô ấy xong rồi",ph:"Si hez ol-ré-đi phí-nish-t"},{t:"Have you ever been to Japan",vn:"Bạn từng đến Nhật chưa?",ph:"Hév du é-vờ bin tu Jờ-pen"},{t:"I have not eaten yet",vn:"Tôi chưa ăn",ph:"Ai hév nót í-tần yet"},{t:"He has lived here since twenty twenty",vn:"Anh ấy sống đây từ 2020",ph:"Hi hez lív-đ hia xin-xờ tuen-ti tuen-ti"}]
+},
+12:{name:"So Sánh",sub:"Tính từ so sánh",lvl:"B2",icon:"⚖️",
+vocab:[
+{en:"bigger",vn:"Lớn hơn",ph:"Bí-gờ",ipa:"/ˈbɪɡər/",img:"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=200&fit=crop",em:"📏"},
+{en:"better",vn:"Tốt hơn",ph:"Bé-tờ",ipa:"/ˈbetər/",img:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=200&fit=crop",em:"👍"},
+{en:"the best",vn:"Tốt nhất",ph:"Đờ bé-xt",ipa:"/ðə best/",img:"https://images.unsplash.com/photo-1553729459-afe8f2e2e2d0?w=300&h=200&fit=crop",em:"🏆"},
+{en:"more",vn:"Hơn/Nhiều hơn",ph:"Mo",ipa:"/mɔːr/",img:"https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?w=300&h=200&fit=crop",em:"➕"},
+{en:"than",vn:"Hơn (so với)",ph:"Đen",ipa:"/ðæn/",img:"https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&h=200&fit=crop",em:"↔️"}],
+vocabTips:["<b>Bigger</b> — Lớn hơn 📏 /Bí-gờ/. big → bigger.","<b>Better</b> — Tốt hơn 👍 /Bé-tờ/. good → better (bất quy tắc!).","<b>The best</b> — Tốt nhất 🏆 /Đờ bé-xt/. good → better → the best.","<b>More</b> — Hơn/Nhiều hơn ➕ /Mo/. More expensive = Đắt hơn.","<b>Than</b> — Hơn (so với) ↔️ /Đen/. Bigger than = Lớn hơn..."],
+grammarTips:["Cô dạy em <b>SO SÁNH</b> — kỹ năng thiết yếu để diễn đạt ý kiến! ⚖️","Có 2 loại so sánh! 🧠",
+'<div class="bub-hl">Từ ngắn (1-2 âm): thêm -er / -est</div><b>So sánh hơn:</b> tall → tall<b>er</b> (cao hơn)<br><b>So sánh nhất:</b> tall → the tall<b>est</b> (cao nhất)<br><i>He is tall<b>er than</b> me</i><br><i>She is <b>the tallest</b> in class</i>',
+'<div class="bub-hl">Từ dài (3+ âm): more / the most</div><b>So sánh hơn:</b> <b>more</b> expensive (đắt hơn)<br><b>So sánh nhất:</b> <b>the most</b> expensive (đắt nhất)<br><i>This is <b>more</b> expensive <b>than</b> that</i><br><i>This is <b>the most</b> expensive</i>',
+'<div class="bub-hl">Bất quy tắc (phải nhớ!)</div><b>good → better → the best</b> (tốt)<br><b>bad → worse → the worst</b> (tệ)<br><b>far → farther → the farthest</b> (xa)<br>Mẹo: 3 từ này dùng CỰC NHIỀU, cứ nhớ thuộc lòng!',
+"Tóm lại:<br>📏 Từ ngắn: <b>-er / -est</b><br>📐 Từ dài: <b>more / the most</b><br>⚠️ Bất quy tắc: <b>good→better→best, bad→worse→worst</b>","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"📏",a:"bigger",o:["bigger","better","more","the best"],vn:"Lớn hơn"},{em:"👍",a:"better",o:["bigger","the best","better","more"],vn:"Tốt hơn"},{em:"🏆",a:"the best",o:["better","more","bigger","the best"],vn:"Tốt nhất"},{em:"➕",a:"more",o:["the best","bigger","than","more"],vn:"Hơn/Nhiều hơn"},{em:"↔️",a:"than",o:["more","than","better","bigger"],vn:"Hơn (so với)"}],
+listenQ:[{w:"bigger",o:["bigger","better","more","than"]},{w:"better",o:["bigger","better","the best","more"]},{w:"the best",o:["better","more","the best","bigger"]},{w:"more",o:["than","bigger","more","better"]},{w:"than",o:["more","the best","bigger","than"]}],
+writeQ:[{a:["This","is","bigger","than","that"],vn:"Cái này lớn hơn cái kia",en:"This is bigger than that",extra:["more","the"]},{a:["She","is","better","than","me"],vn:"Cô ấy giỏi hơn tôi",en:"She is better than me",extra:["more","best"]},{a:["He","is","the","best","student"],vn:"Anh ấy là học sinh giỏi nhất",en:"He is the best student",extra:["better","more"]},{a:["This","is","more","expensive"],vn:"Cái này đắt hơn",en:"This is more expensive",extra:["most","than"]},{a:["It","is","the","most","beautiful"],vn:"Nó đẹp nhất",en:"It is the most beautiful",extra:["more","than"]}],
+speakQ:[{t:"This is bigger than that",vn:"Cái này lớn hơn cái kia",ph:"Đít iz bí-gờ đen đét"},{t:"She is better than me",vn:"Cô ấy giỏi hơn tôi",ph:"Si iz bé-tờ đen mi"},{t:"He is the best student",vn:"Anh ấy giỏi nhất",ph:"Hi iz đờ bé-xt xtiu-đần"},{t:"This is more expensive",vn:"Cái này đắt hơn",ph:"Đít iz mo ek-xpen-xíp"},{t:"It is the most beautiful",vn:"Nó đẹp nhất",ph:"It iz đờ mâu-xt biu-ti-phồ"}]
+},
+13:{name:"Tin Tức",sub:"Câu Bị Động",lvl:"B2",icon:"📰",
+vocab:[
+{en:"built",vn:"Được xây",ph:"Bilt",ipa:"/bɪlt/",img:"https://images.unsplash.com/photo-1486325212027-8081e485255e?w=300&h=200&fit=crop",em:"🏗️"},
+{en:"spoken",vn:"Được nói",ph:"Xpâu-kần",ipa:"/ˈspoʊkən/",img:"https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&h=200&fit=crop",em:"🗣️"},
+{en:"made",vn:"Được làm",ph:"Mế-đ",ipa:"/meɪd/",img:"https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=300&h=200&fit=crop",em:"🏭"},
+{en:"discovered",vn:"Được phát hiện",ph:"Đi-xca-vờ-đ",ipa:"/dɪsˈkʌvərd/",img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop",em:"🔬"},
+{en:"written",vn:"Được viết",ph:"Rí-tần",ipa:"/ˈrɪtən/",img:"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=300&h=200&fit=crop",em:"✍️"}],
+vocabTips:["<b>Built</b> — Được xây 🏗️ /Bilt/. build → built → built.","<b>Spoken</b> — Được nói 🗣️ /Xpâu-kần/. speak → spoke → spoken.","<b>Made</b> — Được làm 🏭 /Mế-đ/. make → made → made. Made in Vietnam!","<b>Discovered</b> — Được phát hiện 🔬 /Đi-xca-vờ-đ/.","<b>Written</b> — Được viết ✍️ /Rí-tần/. write → wrote → written."],
+grammarTips:["Đọc báo tiếng Anh em sẽ gặp RẤT NHIỀU <b>câu bị động</b>! 📰","Bị động = nhấn mạnh vào VIỆC, không phải NGƯỜI! 🧠",
+'<div class="bub-hl">Công thức: be + V3 (past participle)</div><b>Chủ động:</b> They <b>built</b> this house in 2000<br><b>Bị động:</b> This house <b>was built</b> in 2000<br><br>Mẹo: Đổi vị trí — vật/việc lên đầu câu!',
+'<div class="bub-hl">Các thì phổ biến</div><b>Hiện tại:</b> English <b>is spoken</b> worldwide (được nói)<br><b>Quá khứ:</b> It <b>was built</b> in 1990 (được xây)<br><b>Tương lai:</b> It <b>will be finished</b> tomorrow (sẽ được hoàn thành)',
+'<div class="bub-hl">by + người/vật thực hiện</div><i>This book <b>was written by</b> Mark Twain</i><br>= Sách này được viết bởi Mark Twain<br><br>Mẹo: <b>by</b> = \"bởi\" — chỉ dùng khi cần nói ai làm!',
+"Tóm lại:<br>📐 <b>be + V3</b> = câu bị động<br>⏰ is/was/will be + V3 (tùy thì)<br>👤 <b>by</b> = bởi (nếu cần nói ai)","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"🏗️",a:"built",o:["built","spoken","made","written"],vn:"Được xây"},{em:"🗣️",a:"spoken",o:["written","built","spoken","made"],vn:"Được nói"},{em:"🏭",a:"made",o:["spoken","made","built","discovered"],vn:"Được làm"},{em:"🔬",a:"discovered",o:["made","written","built","discovered"],vn:"Được phát hiện"},{em:"✍️",a:"written",o:["discovered","spoken","written","made"],vn:"Được viết"}],
+listenQ:[{w:"built",o:["built","made","spoken","written"]},{w:"spoken",o:["built","spoken","made","discovered"]},{w:"made",o:["spoken","written","made","built"]},{w:"discovered",o:["made","discovered","written","spoken"]},{w:"written",o:["discovered","built","spoken","written"]}],
+writeQ:[{a:["English","is","spoken","worldwide"],vn:"Tiếng Anh được nói toàn cầu",en:"English is spoken worldwide",extra:["speaks","was"]},{a:["This","house","was","built","in","1990"],vn:"Nhà này được xây năm 1990",en:"This house was built in 1990",extra:["is","build"]},{a:["The","book","was","written","by","her"],vn:"Sách được viết bởi cô ấy",en:"The book was written by her",extra:["is","wrote"]},{a:["It","will","be","finished","tomorrow"],vn:"Nó sẽ được hoàn thành ngày mai",en:"It will be finished tomorrow",extra:["was","is"]},{a:["Rice","is","made","in","Vietnam"],vn:"Gạo được làm ở Việt Nam",en:"Rice is made in Vietnam",extra:["was","makes"]}],
+speakQ:[{t:"English is spoken worldwide",vn:"Tiếng Anh được nói toàn cầu",ph:"Ing-lish iz xpâu-kần uơl-uai-đ"},{t:"This house was built in nineteen ninety",vn:"Nhà này xây năm 1990",ph:"Đít hao-xờ uoz bilt in nai-n-tin nai-n-ti"},{t:"The book was written by her",vn:"Sách cô ấy viết",ph:"Đờ buk uoz rí-tần bai hơ"},{t:"It will be finished tomorrow",vn:"Mai sẽ xong",ph:"It uil bi phí-nish-t tu-mo-râu"},{t:"Rice is made in Vietnam",vn:"Gạo làm ở VN",ph:"Rai-xờ iz mế-đ in Viet-nam"}]
+},
+14:{name:"Nếu & Giá Mà",sub:"Câu Điều Kiện",lvl:"B2",icon:"🔮",
+vocab:[
+{en:"if",vn:"Nếu",ph:"If",ipa:"/ɪf/",img:"https://images.unsplash.com/photo-1502101872923-d48509bff386?w=300&h=200&fit=crop",em:"❓"},
+{en:"would",vn:"Sẽ (giả định)",ph:"Wút",ipa:"/wʊd/",img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=200&fit=crop",em:"💭"},
+{en:"could",vn:"Có thể (giả định)",ph:"Kút",ipa:"/kʊd/",img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop",em:"🔑"},
+{en:"possible",vn:"Có thể xảy ra",ph:"Po-xi-bồ",ipa:"/ˈpɒsəbəl/",img:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=300&h=200&fit=crop",em:"✨"},
+{en:"impossible",vn:"Không thể",ph:"Im-po-xi-bồ",ipa:"/ɪmˈpɒsəbəl/",img:"https://images.unsplash.com/photo-1489533119213-66a5cd877091?w=300&h=200&fit=crop",em:"🚫"}],
+vocabTips:["<b>If</b> — Nếu ❓ /If/. Từ nhỏ nhưng quyền lực!","<b>Would</b> — Sẽ (trong giả định) 💭 /Wút/. I would go = Tôi sẽ đi (nếu...).","<b>Could</b> — Có thể (giả định) 🔑 /Kút/. Quá khứ của can, dùng trong câu giả định.","<b>Possible</b> — Có thể xảy ra ✨ /Po-xi-bồ/.","<b>Impossible</b> — Không thể 🚫 /Im-po-xi-bồ/. im- = phủ định!"],
+grammarTips:["<b>Câu điều kiện</b> — cấu trúc KINH ĐIỂN của B2! Đọc báo, viết email đều cần! 🔮","Có 3 loại chính! 🧠",
+'<div class="bub-hl">Loại 0: Sự thật hiển nhiên</div><b>If + hiện tại, hiện tại</b><br><i>If you heat water, it <b>boils</b></i><br>= Nếu đun nước, nó sôi (luôn đúng!)<br>Mẹo: Đây là luật tự nhiên! 🌍',
+'<div class="bub-hl">Loại 1: Có thể xảy ra (tương lai)</div><b>If + hiện tại, will + V</b><br><i>If it <b>rains</b>, I <b>will</b> stay home</i><br>= Nếu mưa, tôi sẽ ở nhà<br>Mẹo: Chuyện CÓ THỂ xảy ra thật! ☁️',
+'<div class="bub-hl">Loại 2: Giả định (khó xảy ra)</div><b>If + quá khứ, would + V</b><br><i>If I <b>had</b> money, I <b>would</b> travel</i><br>= Nếu tôi có tiền, tôi sẽ đi du lịch<br>(nhưng hiện tại KHÔNG CÓ tiền 😅)<br>Mẹo: <b>Giá mà...</b> = If + quá khứ!',
+"Tóm lại:<br>0️⃣ <b>If + HT, HT</b> = Luật tự nhiên<br>1️⃣ <b>If + HT, will + V</b> = Có thể thật<br>2️⃣ <b>If + QK, would + V</b> = Giá mà...","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"❓",a:"if",o:["if","would","could","than"],vn:"Nếu"},{em:"💭",a:"would",o:["could","if","would","possible"],vn:"Sẽ (giả định)"},{em:"🔑",a:"could",o:["would","possible","if","could"],vn:"Có thể (giả định)"},{em:"✨",a:"possible",o:["impossible","could","would","possible"],vn:"Có thể xảy ra"},{em:"🚫",a:"impossible",o:["possible","if","impossible","could"],vn:"Không thể"}],
+listenQ:[{w:"if",o:["if","would","could","possible"]},{w:"would",o:["could","would","if","impossible"]},{w:"could",o:["would","if","could","possible"]},{w:"possible",o:["impossible","could","possible","if"]},{w:"impossible",o:["possible","would","if","impossible"]}],
+writeQ:[{a:["If","it","rains","I","will","stay","home"],vn:"Nếu mưa tôi sẽ ở nhà",en:"If it rains, I will stay home",extra:["would","rained"]},{a:["If","I","had","money","I","would","travel"],vn:"Nếu có tiền tôi sẽ đi du lịch",en:"If I had money, I would travel",extra:["have","will"]},{a:["If","you","study","you","will","pass"],vn:"Nếu học bạn sẽ đậu",en:"If you study, you will pass",extra:["would","studied"]},{a:["If","I","could","fly","I","would","be","happy"],vn:"Nếu bay được tôi sẽ vui",en:"If I could fly, I would be happy",extra:["can","will"]},{a:["It","is","possible"],vn:"Nó có thể xảy ra",en:"It is possible",extra:["impossible","would"]}],
+speakQ:[{t:"If it rains I will stay home",vn:"Nếu mưa tôi ở nhà",ph:"If it rên-z ai uil xtây hâum"},{t:"If I had money I would travel",vn:"Nếu có tiền tôi đi du lịch",ph:"If ai héd ma-ni ai wút tré-vồ"},{t:"If you study you will pass",vn:"Nếu học bạn sẽ đậu",ph:"If du xtơ-đi du uil pa-xờ"},{t:"It is possible",vn:"Có thể xảy ra",ph:"It iz po-xi-bồ"},{t:"Nothing is impossible",vn:"Không gì là không thể",ph:"Na-thing iz im-po-xi-bồ"}]
+},
+15:{name:"Thành Ngữ",sub:"Idioms & Phrasal Verbs",lvl:"C1",icon:"🎭",
+vocab:[
+{en:"look up",vn:"Tra (từ điển)",ph:"Lúk ấp",ipa:"/lʊk ʌp/",img:"https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=300&h=200&fit=crop",em:"🔍"},
+{en:"give up",vn:"Bỏ cuộc",ph:"Gíp ấp",ipa:"/ɡɪv ʌp/",img:"https://images.unsplash.com/photo-1489533119213-66a5cd877091?w=300&h=200&fit=crop",em:"🏳️"},
+{en:"find out",vn:"Phát hiện ra",ph:"Phai-n đao-t",ipa:"/faɪnd aʊt/",img:"https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop",em:"💡"},
+{en:"break down",vn:"Hỏng/Sụp đổ",ph:"Brếch đao-n",ipa:"/breɪk daʊn/",img:"https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&h=200&fit=crop",em:"💥"},
+{en:"carry on",vn:"Tiếp tục",ph:"Ke-ri on",ipa:"/ˈkæri ɒn/",img:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=200&fit=crop",em:"▶️"}],
+vocabTips:["<b>Look up</b> — Tra (từ điển) 🔍 /Lúk ấp/. Look up a word = Tra một từ.","<b>Give up</b> — Bỏ cuộc 🏳️ /Gíp ấp/. Never give up! = Đừng bao giờ bỏ cuộc!","<b>Find out</b> — Phát hiện ra 💡 /Phai-n đao-t/. I found out the truth.","<b>Break down</b> — Hỏng/Sụp đổ 💥 /Brếch đao-n/. My car broke down.","<b>Carry on</b> — Tiếp tục ▶️ /Ke-ri on/. Carry on working = Tiếp tục làm."],
+grammarTips:["Chào mừng em đến <b>level C1</b>! Đây là level <b>đọc báo + tranh luận</b>! 🎭","Phrasal verbs = Động từ + giới từ → nghĩa KHÁC HOÀN TOÀN! 🧠",
+'<div class="bub-hl">Phrasal Verbs phổ biến</div><b>look up</b> = tra cứu (≠ nhìn lên)<br><b>turn on/off</b> = bật/tắt<br><b>pick up</b> = nhặt lên / đón ai<br><b>put off</b> = hoãn lại<br><b>come up with</b> = nghĩ ra ý tưởng<br>Mẹo: PHẢI HỌC TỪNG CỤM, không đoán được!',
+'<div class="bub-hl">Idioms (Thành ngữ) hay gặp</div><b>Piece of cake</b> = Dễ như ăn bánh 🍰<br><b>Break a leg</b> = Chúc may mắn! 🦵<br><b>Hit the nail on the head</b> = Nói trúng vấn đề 🔨<br><b>Under the weather</b> = Không khỏe 🤒<br><b>Once in a blue moon</b> = Hiếm khi 🌙',
+'<div class="bub-hl">Cách nhớ Phrasal Verbs</div>1. Học theo CHỦ ĐỀ, không học random<br>2. Đặt vào CÂU để nhớ ngữ cảnh<br>3. Mỗi ngày học 2-3 cụm, dùng ngay!<br><br>Mẹo: Viết note dán lên tường! 📝',
+"C1 = hiểu idioms + phrasal verbs → giao tiếp tự nhiên như người bản xứ! 🗣️","Giờ <b>LÀM BÀI</b>! 💪"],
+readQ:[{em:"🔍",a:"look up",o:["look up","give up","find out","carry on"],vn:"Tra cứu"},{em:"🏳️",a:"give up",o:["carry on","look up","give up","break down"],vn:"Bỏ cuộc"},{em:"💡",a:"find out",o:["give up","find out","look up","carry on"],vn:"Phát hiện ra"},{em:"💥",a:"break down",o:["find out","carry on","give up","break down"],vn:"Hỏng/Sụp đổ"},{em:"▶️",a:"carry on",o:["break down","carry on","look up","find out"],vn:"Tiếp tục"}],
+listenQ:[{w:"look up",o:["look up","give up","carry on","find out"]},{w:"give up",o:["find out","give up","break down","look up"]},{w:"find out",o:["give up","carry on","find out","break down"]},{w:"break down",o:["look up","find out","break down","carry on"]},{w:"carry on",o:["break down","look up","give up","carry on"]}],
+writeQ:[{a:["Never","give","up"],vn:"Đừng bao giờ bỏ cuộc",en:"Never give up!",extra:["always","carry"]},{a:["I","need","to","find","out","the","truth"],vn:"Tôi cần tìm ra sự thật",en:"I need to find out the truth",extra:["look","give"]},{a:["My","car","broke","down","yesterday"],vn:"Xe tôi hỏng hôm qua",en:"My car broke down yesterday",extra:["break","carry"]},{a:["Please","carry","on","working"],vn:"Hãy tiếp tục làm việc",en:"Please carry on working",extra:["give","look"]},{a:["Let","me","look","it","up"],vn:"Để tôi tra xem",en:"Let me look it up",extra:["find","give"]}],
+speakQ:[{t:"Never give up",vn:"Đừng bỏ cuộc",ph:"Ne-vờ gíp ấp"},{t:"I need to find out the truth",vn:"Tôi cần tìm ra sự thật",ph:"Ai nít tu phai-n đao-t đờ tru-th"},{t:"My car broke down yesterday",vn:"Xe tôi hỏng hôm qua",ph:"Mai ka brâuk đao-n yé-xtờ-đây"},{t:"Please carry on working",vn:"Tiếp tục làm việc",ph:"Pli-z ke-ri on uơ-king"},{t:"This test is a piece of cake",vn:"Bài test dễ như ăn bánh",ph:"Đít tét iz ờ pít ov kếch"}]
+},
+16:{name:"Tranh Luận",sub:"Liên từ & Lập luận",lvl:"C1",icon:"🎓",
+vocab:[
+{en:"although",vn:"Mặc dù",ph:"Ol-đâu",ipa:"/ɔːlˈðoʊ/",img:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=300&h=200&fit=crop",em:"🔄"},
+{en:"however",vn:"Tuy nhiên",ph:"Hao-é-vờ",ipa:"/haʊˈevər/",img:"https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=300&h=200&fit=crop",em:"↩️"},
+{en:"therefore",vn:"Vì vậy",ph:"Đe-pho",ipa:"/ˈðerfɔːr/",img:"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=300&h=200&fit=crop",em:"➡️"},
+{en:"furthermore",vn:"Hơn nữa",ph:"Phơ-đờ-mo",ipa:"/ˈfɜːrðərmɔːr/",img:"https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=300&h=200&fit=crop",em:"➕"},
+{en:"opinion",vn:"Ý kiến",ph:"Ờ-pi-ni-ần",ipa:"/əˈpɪnjən/",img:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=300&h=200&fit=crop",em:"💬"}],
+vocabTips:["<b>Although</b> — Mặc dù 🔄 /Ol-đâu/. Although I am tired, I study.","<b>However</b> — Tuy nhiên ↩️ /Hao-é-vờ/. Dùng đầu câu + dấu phẩy.","<b>Therefore</b> — Vì vậy ➡️ /Đe-pho/. Nối nguyên nhân → kết quả.","<b>Furthermore</b> — Hơn nữa ➕ /Phơ-đờ-mo/. Thêm ý bổ sung.","<b>Opinion</b> — Ý kiến 💬 /Ờ-pi-ni-ần/. In my opinion = Theo ý tôi."],
+grammarTips:["Trạm cuối cùng! Level <b>C1 — Tranh luận & Viết luận</b>! 🎓","Viết/nói hay = biết dùng <b>LIÊN TỪ</b> nối ý mạch lạc! 🧠",
+'<div class="bub-hl">Nhóm 1: Đối lập (Nhưng/Mặc dù)</div><b>Although / Even though</b> + mệnh đề<br><i><b>Although</b> it rained, we went out</i><br><br><b>However</b> (đầu câu mới)<br><i>It rained. <b>However</b>, we went out.</i><br><br>Mẹo: <b>Although</b> = nối câu, <b>However</b> = tách câu',
+'<div class="bub-hl">Nhóm 2: Nguyên nhân - Kết quả</div><b>Because</b> = Vì (nối câu)<br><i>I stayed home <b>because</b> it rained</i><br><br><b>Therefore / As a result</b> = Vì vậy (tách câu)<br><i>It rained. <b>Therefore</b>, I stayed home.</i>',
+'<div class="bub-hl">Nhóm 3: Thêm ý & Cho ý kiến</div><b>Furthermore / Moreover / In addition</b> = Hơn nữa<br><b>In my opinion</b> = Theo ý tôi<br><b>I believe that...</b> = Tôi tin rằng...<br><b>On the other hand</b> = Mặt khác<br><br>Mẹo: Dùng 3-4 liên từ/bài viết = điểm cao! ✍️',
+"🎉 <b>CHÚC MỪNG!</b> Em đã đi hết lộ trình từ A1→C1!<br><br>Tổng kết kỹ năng:<br>📖 Đọc báo tiếng Anh ✅<br>🎧 Nghe hiểu giao tiếp ✅<br>✏️ Viết email/luận ✅<br>🗣️ Tranh luận bằng Anh ngữ ✅","Giờ <b>LÀM BÀI CUỐI</b>! 💪🔥"],
+readQ:[{em:"🔄",a:"although",o:["although","however","therefore","furthermore"],vn:"Mặc dù"},{em:"↩️",a:"however",o:["therefore","although","however","opinion"],vn:"Tuy nhiên"},{em:"➡️",a:"therefore",o:["however","furthermore","opinion","therefore"],vn:"Vì vậy"},{em:"➕",a:"furthermore",o:["therefore","opinion","furthermore","although"],vn:"Hơn nữa"},{em:"💬",a:"opinion",o:["furthermore","although","however","opinion"],vn:"Ý kiến"}],
+listenQ:[{w:"although",o:["although","however","therefore","opinion"]},{w:"however",o:["therefore","however","although","furthermore"]},{w:"therefore",o:["however","furthermore","therefore","although"]},{w:"furthermore",o:["although","therefore","furthermore","however"]},{w:"opinion",o:["furthermore","opinion","although","therefore"]}],
+writeQ:[{a:["Although","I","am","tired","I","study"],vn:"Mặc dù mệt tôi vẫn học",en:"Although I am tired, I study",extra:["however","therefore"]},{a:["It","rained","However","we","went","out"],vn:"Trời mưa. Tuy nhiên chúng tôi vẫn ra ngoài",en:"It rained. However, we went out",extra:["although","therefore"]},{a:["In","my","opinion","this","is","good"],vn:"Theo ý tôi, cái này tốt",en:"In my opinion, this is good",extra:["however","although"]},{a:["He","is","smart","Therefore","he","passed"],vn:"Anh ấy thông minh. Vì vậy anh ấy đậu",en:"He is smart. Therefore, he passed",extra:["however","although"]},{a:["Furthermore","English","is","important"],vn:"Hơn nữa, tiếng Anh quan trọng",en:"Furthermore, English is important",extra:["however","although"]}],
+speakQ:[{t:"Although I am tired I will study",vn:"Dù mệt tôi vẫn học",ph:"Ol-đâu ai em tai-ờd ai uil xtơ-đi"},{t:"In my opinion this is very important",vn:"Theo tôi điều này rất quan trọng",ph:"In mai ờ-pi-ni-ần đít iz ve-ri im-po-tần"},{t:"However we should try again",vn:"Tuy nhiên ta nên thử lại",ph:"Hao-é-vờ uy shút trai ờ-gên"},{t:"Therefore I decided to study English",vn:"Vì vậy tôi quyết học tiếng Anh",ph:"Đe-pho ai đi-xai-địd tu xtơ-đi Ing-lish"},{t:"I believe that nothing is impossible",vn:"Tôi tin không gì là không thể",ph:"Ai bi-lív đét na-thing iz im-po-xi-bồ"}]
+}};
+var ML=[
+{id:1,n:"Xây Móng",s:"Đại từ & To-be",l:"A1",i:"🏗️"},
+{id:2,n:"Chào Hỏi",s:"Giao tiếp cơ bản",l:"A1",i:"👋"},
+{id:3,n:"Gia Đình",s:"Danh từ & Sở hữu",l:"A1",i:"👨‍👩‍👧"},
+{id:4,n:"Đi Chợ",s:"Số đếm & Giá cả",l:"A2",i:"🛒"},
+{id:5,n:"Hỏi Đường",s:"Giới từ & Chỉ đường",l:"A2",i:"🗺️"},
+{id:6,n:"Nhà Hàng",s:"Gọi món & Lịch sự",l:"A2",i:"🍽️"},
+{id:7,n:"Hàng Ngày",s:"Thì Hiện Tại Đơn",l:"B1",i:"📅"},
+{id:8,n:"Du Lịch",s:"Thì Quá Khứ Đơn",l:"B1",i:"✈️"},
+{id:9,n:"Sức Khỏe",s:"Can / Should / Must",l:"B1",i:"🏥"},
+{id:10,n:"Kế Hoạch",s:"Thì Tương Lai",l:"B1",i:"🎯"},
+{id:11,n:"Công Việc",s:"Thì Hiện Tại HT",l:"B2",i:"💼"},
+{id:12,n:"So Sánh",s:"Tính từ so sánh",l:"B2",i:"⚖️"},
+{id:13,n:"Tin Tức",s:"Câu Bị Động",l:"B2",i:"📰"},
+{id:14,n:"Nếu & Giá Mà",s:"Câu Điều Kiện",l:"B2",i:"🔮"},
+{id:15,n:"Thành Ngữ",s:"Idioms & Phrasal Verbs",l:"C1",i:"🎭"},
+{id:16,n:"Tranh Luận",s:"Liên từ & Lập luận",l:"C1",i:"🎓"}
+];
+var CH=["👩‍🏫","👨‍🎓","👩","🧑","👦","👧"];
+var MOK=["Chính xác!","Tuyệt quá!","Làm tốt lắm!","Xuất sắc!"];
+var MNO=["Sai rồi!","Chưa đúng!"];
+var PN={teach_vocab:"Dạy từ vựng",teach_grammar:"Dạy ngữ pháp",assign:"Giao bài",reading:"Bài tập Đọc",listening:"Bài tập Nghe",writing:"Bài tập Viết",speaking:"Bài tập Nói"};
+
+/* ============ STATE ============ */
+var sv={u:1,xp:0,hideInstall:false},ls={ph:"",st:1,vi:0,gi:0,qi:0,h:3,xp:0,xt:0,ok:false,pk:null,pl:[],bk:null,wr:null,tr:"",ss:0,sr:null,rec:false,combo:0,sel:null,rp:0,rpTr:"",rpSc:0,rpRec:false};
+var KEY="ej7";
+function ld(){try{var d=JSON.parse(localStorage.getItem(KEY));if(d&&d.sv)sv=d.sv;if(d&&d.ls)ls=d.ls}catch(e){}}
+function sa(){try{localStorage.setItem(KEY,JSON.stringify({sv:sv,ls:ls}))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function show(i){document.querySelectorAll('.S').forEach(function(s){s.classList.remove('on')});$(i).classList.add('on')}
+function shuf(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t}return b}
+function pk(a){return a[Math.floor(Math.random()*a.length)]}
+function sp(t,r){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=r||0.8;var vs=speechSynthesis.getVoices();var f=vs.find(function(x){return x.lang.indexOf("en")===0&&/female|samantha|zira|karen/i.test(x.name)});if(f)u.voice=f;speechSynthesis.speak(u)}catch(e){}}
+function spVi(t,r){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="vi-VN";u.rate=r||1;var vs=speechSynthesis.getVoices();var f=vs.find(function(x){return x.lang.indexOf("vi")===0&&/female/i.test(x.name)});if(!f)f=vs.find(function(x){return x.lang.indexOf("vi")===0});if(f)u.voice=f;speechSynthesis.speak(u)}catch(e){}}
+function spBoth(vn,en,r){try{speechSynthesis.cancel();var u1=new SpeechSynthesisUtterance(vn);u1.lang="vi-VN";u1.rate=r||1;var vs=speechSynthesis.getVoices();var fv=vs.find(function(x){return x.lang.indexOf("vi")===0});if(fv)u1.voice=fv;u1.onend=function(){setTimeout(function(){sp(en,0.7)},400)};speechSynthesis.speak(u1)}catch(e){}}
+function bp(ok){try{var c=new(window.AudioContext||window.webkitAudioContext)();var o=c.createOscillator();var g=c.createGain();o.connect(g);g.connect(c.destination);g.gain.value=0.12;if(ok){o.frequency.value=800;o.start();setTimeout(function(){o.frequency.value=1200},100);setTimeout(function(){o.stop();c.close()},250)}else{o.frequency.value=300;o.start();setTimeout(function(){o.stop();c.close()},300)}}catch(e){}}
+function fc(){var b=$("cfx");b.innerHTML="";b.style.display="block";var cs=["#58CC02","#FFC800","#1CB0F6","#FF9600","#CE82FF","#FF4B4B"];for(var i=0;i<30;i++){var p=document.createElement("div");p.className="cfp";var sz=6+Math.random()*8;p.style.cssText="left:"+Math.random()*100+"%;top:-10px;width:"+sz+"px;height:"+sz+"px;background:"+cs[i%6]+";animation-duration:"+(1+Math.random()*1.5)+"s;animation-delay:"+Math.random()*.5+"s;";b.appendChild(p)}setTimeout(function(){b.style.display="none";b.innerHTML=""},2500)}
+function D(){return SD[ls.st]||SD[1]}
+function pH(c,t){return'<div class="pbar"><div class="pbar-x T" onclick="backToMap()">✕</div><div class="pbar-x T" onclick="goBack()" style="font-size:16px">◀</div><div class="pbar-track"><div class="pbar-fill" style="width:'+Math.round(c/t*100)+'%"></div></div></div>'}
+function cH(){return ls.combo<2?"":'<div class="combo">COMBO x'+ls.combo+'</div>'}
+function cB(em,text,isA){var avt=(em.indexOf("👩")>=0)?'<img src="'+AVATAR+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #FFC800;box-shadow:0 4px 15px rgba(255,200,0,.3)">':'<span>'+em+'</span>';var h='<div class="char-area"><div class="char-img">'+avt+'<div class="char-shadow"></div></div><div class="speech-bub">';if(isA)h+='<div class="aud" onclick="sp(\''+text.replace(/'/g,"\\'")+'\',0.7)"><div class="aud-icon">🔊</div> <span style="border-bottom:3px dashed #1CB0F6">'+text+'</span></div>';else h+='<span style="font-size:20px;font-weight:800;color:#E5E5E5">'+text+'</span>';return h+'</div></div>'}
+function cBvi(em,text){var avt=(em==="\u{1F469}\u200D\u{1F3EB}"||em==="👩\u200D🏫"||em.indexOf("👩")>=0)?'<img src="'+AVATAR+'" style="width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #FFC800;box-shadow:0 4px 15px rgba(255,200,0,.3)">':'<span>'+em+'</span>';var h='<div class="char-area"><div class="char-img">'+avt+'<div class="char-shadow"></div></div><div class="speech-bub">';h+='<div class="aud" onclick="spVi(\''+text.replace(/'/g,"\\'")+'\',1)"><div class="aud-icon" style="background:#FF9600">🔊</div> <span style="border-bottom:3px dashed #FF9600;color:#FF9600">'+text+'</span></div>';return h+'</div></div>'}
+window.backToMap=function(){sa();goMap()};
+window.goBack=function(){
+  var order=["teach_vocab","teach_grammar","assign","reading","listening","writing","speaking"];
+  var idx=order.indexOf(ls.ph);
+  if(idx<=0){goMap();return}
+  if(ls.qi>0){ls.qi--;ls.ok=false;ls.pk=null;ls.sel=null;ls.wr=null;ls.pl=[];ls.bk=null;resetRp();sa();rl();return}
+  ls.ph=order[idx-1];ls.qi=0;ls.ok=false;ls.pk=null;ls.sel=null;ls.wr=null;ls.pl=[];ls.bk=null;resetRp();sa();rl();
+};
+
+/* ============ REPEAT READ ALOUD SECTION ============ */
+function repeatHTML(word,phon){
+  var h='<div class="repeat-sec">';
+  h+='<p style="font-size:12px;color:#FFC800;font-weight:800;margin-bottom:6px">🎤 ĐỌC LẠI ĐỂ TIẾP TỤC</p>';
+  h+='<p class="repeat-word">'+word+'</p>';
+  if(phon)h+='<p class="repeat-ph">/'+phon+'/</p>';
+  h+='<button class="T" style="display:inline-flex;align-items:center;gap:6px;background:#1CB0F6;color:#fff;padding:6px 14px;border-radius:10px;font-size:13px;font-weight:700;margin-bottom:8px" onclick="sp(\''+word.replace(/'/g,"\\'")+'\',0.7)">🔊 Nghe mẫu</button><br>';
+  if(ls.rpRec){h+='<div class="mic-sm on">🎤</div><p class="repeat-status">Đang nghe...</p>'}
+  else if(ls.rp===2){h+='<div class="mic-sm pass">✓</div><p class="repeat-ok">Phát âm đạt! '+ls.rpSc+'%</p>'}
+  else{
+    h+='<button class="T mic-sm off" onclick="doRepeat(\''+word.replace(/'/g,"\\'")+'\')">🎤</button>';
+    if(ls.rpTr)h+='<p class="repeat-fail">Em nói: "'+ls.rpTr+'" ('+ls.rpSc+'%) — Thử lại!</p>';
+    else h+='<p class="repeat-status">Bấm 🎤 rồi đọc to</p>';
+  }
+  h+='</div>';
+  return h;
+}
+
+function resPanel(ok,msg,sub,fn,repeatWord,repeatPh){
+  var h='<div class="rp '+(ok?"ok":"no")+'">';
+  h+='<div class="rp-label"><div class="rp-icon '+(ok?"ok":"no")+'">'+(ok?"✓":"✕")+'</div><span class="rp-text '+(ok?"ok":"no")+'">'+msg+'</span></div>';
+  if(sub)h+='<div class="rp-sub">'+sub+'</div>';
+  if(ok&&repeatWord){
+    var need=3;
+    if(ls.rpCount<need){
+      h+='<p style="font-size:12px;color:#FFC800;font-weight:800;margin-bottom:4px;text-align:center">🎤 ĐỌC LẠI '+need+' LẦN ĐỂ TIẾP TỤC ('+(ls.rpCount||0)+'/'+need+')</p>';
+      h+=repeatHTML(repeatWord,repeatPh);
+    }else{
+      h+='<p style="font-size:14px;color:#58CC02;font-weight:800;text-align:center;margin-bottom:8px">✅ Đã đọc đủ '+need+' lần! Giỏi lắm!</p>';
+    }
+  }
+  var canNext=!ok||(ls.rpCount>=3)||!repeatWord;
+  if(canNext){h+='<button class="T btn-ct '+(ok?"ok":"no")+'" onclick="'+fn+'">Tiếp tục</button>'}
+  else{h+='<button class="T btn-ct dis" style="background:#37464F;color:#566570;pointer-events:none">Đọc đủ 3 lần để tiếp tục</button>'}
+  h+='</div>';
+  return h;
+}
+
+window.doRepeat=function(word){
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ls.rp=2;rerender();return}
+  var r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;
+  ls.rpRec=true;ls.rpTr="";rerender();
+  var timeout=setTimeout(function(){ls.rpRec=false;ls.rpTr="(Không nghe được)";ls.rpSc=0;ls.rp=1;rerender()},8000);
+  r.onresult=function(e){
+    clearTimeout(timeout);
+    var s=e.results[0][0].transcript.toLowerCase().trim();
+    var x=word.toLowerCase().trim();
+    ls.rpTr=s;
+    var ew=x.split(/\s+/),sw=s.split(/\s+/),m=0;
+    ew.forEach(function(w){if(sw.indexOf(w)>=0)m++});
+    var p=Math.round(m/ew.length*100);ls.rpSc=p;
+    if(p>=60){ls.rpCount=(ls.rpCount||0)+1;if(ls.rpCount>=3)ls.rp=2;bp(1);setTimeout(function(){spVi('Lần '+(ls.rpCount)+' đạt! '+(ls.rpCount>=3?'Đủ rồi!':'Tiếp tục nha!'))},300)}else{ls.rp=1;bp(0)}
+    ls.rpRec=false;sa();rerender();
+  };
+  r.onerror=function(){clearTimeout(timeout);ls.rpRec=false;rerender()};
+  r.onend=function(){clearTimeout(timeout);if(ls.rpRec){ls.rpRec=false;rerender()}};
+  r.start();
+};
+
+function rerender(){
+  var m={reading:rR,listening:rL,writing:rW,speaking:rS};
+  if(m[ls.ph])m[ls.ph]();
+}
+
+/* ============ MAP ============ */
+function goMap(){
+show("mapS");var hasR=ls.ph&&ls.ph!=="done"&&ls.ph!=="";
+var h='<div style="padding:24px 20px 16px;display:flex;align-items:center;justify-content:space-between"><div><h1 style="font-size:20px;font-weight:900">Hành Trình Tiếng Anh</h1><p style="font-size:12px;color:#566570;margin-top:2px">Từ zero đến hero!</p></div><div style="display:flex;align-items:center;gap:6px;background:#1B2B34;border:1px solid #37464F;border-radius:20px;padding:6px 12px"><span style="font-size:14px;font-weight:800;color:#FFC800">⚡ '+sv.xp+' XP</span></div></div>';
+// PWA Install banner
+if(!sv.hideInstall&&!window.matchMedia('(display-mode:standalone)').matches){
+h+='<div class="install-bar" id="installBar"><div style="font-size:24px">📲</div><p>Cài app ra màn hình để học mọi lúc!</p><button class="T" onclick="showInstallGuide()">Hướng dẫn</button><button class="close T" onclick="hideInstall()">✕</button></div>';
+}
+if(hasR){h+='<div class="resume T" onclick="resumeL()"><div style="font-size:28px">📌</div><div class="resume-t">Đang dở: Trạm '+ls.st+' — '+(PN[ls.ph]||"")+'</div><div class="resume-b">Tiếp tục</div></div>'}
+if(!isPro()){h+='<div class="T" onclick="showProWall()" style="background:linear-gradient(90deg,rgba(255,200,0,.12),rgba(255,150,0,.12));border:1px solid rgba(255,200,0,.3);border-radius:16px;padding:12px 16px;margin:0 20px 16px;display:flex;align-items:center;gap:12px"><div style="font-size:24px">👑</div><div style="flex:1"><p style="font-size:13px;font-weight:800;color:#FFC800">Mở khóa VIPPRO</p><p style="font-size:11px;color:#FF9600">Liên hệ ☎ Zalo anh Khởi: 0962658682</p></div><div style="background:#FFC800;color:#131F24;font-weight:800;font-size:12px;padding:6px 14px;border-radius:10px">Mở khóa</div></div>'}
+h+='<div style="padding:0 20px;position:relative;display:flex;flex-direction:column;gap:14px"><div style="position:absolute;left:38px;top:0;bottom:0;width:4px;background:#37464F;border-radius:4px"></div>';
+ML.forEach(function(st,i){
+var hasSd=!!SD[st.id];
+var dn=sv.u>st.id;
+var cu=sv.u===st.id;
+var needsPro=st.id>FREE_LIMIT&&!isPro();
+var ul=hasSd&&(!needsPro||isPro());
+var bg=dn?"background:linear-gradient(135deg,#58CC02,#46A302)":needsPro?"background:linear-gradient(135deg,#FFC800,#FF9600)":cu?"background:linear-gradient(135deg,#1CB0F6,#1899D6)":"background:linear-gradient(135deg,#1CB0F6,#1899D6)";
+var ic=dn?"✅":needsPro?"👑":st.i;
+var sth=dn?'<span style="font-size:11px;font-weight:800;color:#58CC02">✅ Hoàn thành</span>':needsPro?'<span style="font-size:11px;font-weight:800;color:#FFC800">👑 VIP PRO</span>':cu?'<span style="font-size:11px;font-weight:800;color:#FFC800" class="ap">▶ Đang học</span>':"";
+var cbg=needsPro?"background:rgba(255,200,0,.05);border-color:rgba(255,200,0,.2)":"background:#1B2B34;border-color:#37464F";
+h+='<div class="as" style="display:flex;align-items:center;gap:14px;animation-delay:'+i*.08+'s" '+(hasSd?'onclick="goSt('+st.id+')"':'')+'>';
+h+='<div style="position:relative;z-index:10;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;'+bg+(cu?";animation:gl 2s infinite":"")+'">'+ic+'</div>';
+h+='<div style="flex:1;border-radius:16px;padding:14px;text-align:left;border:1px solid #37464F;'+cbg+'">';
+h+='<div><span style="font-size:11px;font-weight:800;padding:2px 8px;border-radius:10px;background:rgba(28,176,246,.15);color:#1CB0F6">'+st.l+'</span> '+sth+'</div>';
+h+='<p style="font-size:15px;font-weight:800;margin-top:2px;color:#fff">Trạm '+st.id+': '+st.n+'</p>';
+h+='<p style="font-size:12px;margin-top:1px;color:#566570">'+st.s+'</p></div></div>';
+});h+='</div>';
+h+='<div style="text-align:center;padding:24px 20px 16px;border-top:1px solid #1B2B34;margin-top:20px"><p style="font-size:12px;color:#566570">Tạo bởi <b style="color:#FFC800">Phạm Khởi</b></p><p style="font-size:12px;color:#1CB0F6;margin-top:2px"><a href="tel:0962658682" style="color:#1CB0F6;text-decoration:none">☎ Zalo: 0962658682</a></p></div>';
+$("mapS").innerHTML=h}
+
+window.hideInstall=function(){sv.hideInstall=true;sa();var b=$("installBar");if(b)b.style.display="none"};
+window.showInstallGuide=function(){
+  var el=$("mapS");
+  var h='<div style="padding:20px;min-height:100vh;background:#131F24">';
+  h+='<button class="T" style="background:#37464F;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;font-weight:700;margin-bottom:20px" onclick="goMap()">← Quay lại</button>';
+  h+='<h2 style="font-size:22px;font-weight:900;color:#FFC800;margin-bottom:16px">📲 Cài App Ra Màn Hình</h2>';
+  h+='<div style="background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:16px;margin-bottom:16px">';
+  h+='<h3 style="font-size:16px;font-weight:800;color:#1CB0F6;margin-bottom:8px">Chrome (Android) — Khuyên dùng</h3>';
+  h+='<p style="font-size:14px;color:#CDD4DA;line-height:1.8">1️⃣ Mở file bằng <b>Chrome</b><br>2️⃣ Bấm nút <b>⋮</b> (3 chấm) góc phải trên<br>3️⃣ Chọn <b>"Thêm vào Màn hình chính"</b><br>4️⃣ Đặt tên → Bấm <b>"Thêm"</b><br>5️⃣ App xuất hiện trên màn hình! 🎉</p></div>';
+  h+='<div style="background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:16px;margin-bottom:16px">';
+  h+='<h3 style="font-size:16px;font-weight:800;color:#FF9600;margin-bottom:8px">Samsung Internet</h3>';
+  h+='<p style="font-size:14px;color:#CDD4DA;line-height:1.8">1️⃣ Bấm <b>☰</b> (menu) dưới cùng<br>2️⃣ Chọn <b>"Thêm trang vào"</b> → <b>"Màn hình chính"</b></p></div>';
+  h+='<div style="background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:16px">';
+  h+='<h3 style="font-size:16px;font-weight:800;color:#CE82FF;margin-bottom:8px">Safari (iPhone)</h3>';
+  h+='<p style="font-size:14px;color:#CDD4DA;line-height:1.8">1️⃣ Bấm <b>⬆️</b> (Share) dưới cùng<br>2️⃣ Cuộn xuống chọn <b>"Thêm vào MH chính"</b></p></div>';
+  h+='<div style="margin-top:20px;background:rgba(88,204,2,.1);border:1px solid #58CC02;border-radius:14px;padding:14px;text-align:center"><p style="font-size:14px;color:#58CC02;font-weight:700">💡 Sau khi cài, app mở toàn màn hình như app thật, không có thanh địa chỉ!</p></div>';
+  h+='</div>';
+  el.innerHTML=h;
+};
+
+window.resumeL=function(){show("lesson");rl()};
+var FREE_LIMIT=3;
+var PRO_KEY="ej_pro";
+function isPro(){try{return localStorage.getItem(PRO_KEY)==="1"}catch(e){return false}}
+function goSt(id){
+  if(!SD[id])return;
+  if(id>FREE_LIMIT&&!isPro()){showProWall();return}
+  ls={ph:"teach_vocab",st:id,vi:0,gi:0,qi:0,h:3,xp:0,xt:0,ok:false,pk:null,pl:[],bk:null,wr:null,tr:"",ss:0,sr:null,rec:false,combo:0,sel:null,rp:0,rpTr:"",rpSc:0,rpRec:false,rpCount:0};sa();rl();
+  var d=SD[id];spVi("Nào! Các em ngồi ngay ngắn nha! Hôm nay cô dạy các em bài mới, "+d.name+". Cô sẽ dạy "+d.vocab.length+" từ vựng. Các em chú ý nghe rồi đọc theo cô nhé!")
+}
+
+/* ====== PRO WALL ====== */
+function showProWall(){
+  show("lesson");
+  var el=$("lesson");
+  el.style.background="#131F24";el.style.alignItems="center";el.style.justifyContent="center";el.style.textAlign="center";el.style.padding="24px";
+  var h='<div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin-bottom:12px;border:3px solid #FFC800;box-shadow:0 0 25px rgba(255,200,0,.4)"><img src="'+AVATAR+'" style="width:100%;height:100%;object-fit:cover"></div>';
+  h+='<h2 style="font-size:28px;font-weight:900;color:#FFC800;margin-bottom:4px">👑 VIPPRO</h2>';
+  h+='<p style="font-size:14px;color:#ABB5BA;margin-bottom:20px;line-height:1.5">Mở khóa toàn bộ <b style="color:#fff">16 trạm</b> · A1 đến C1!</p>';
+  h+='<div style="width:100%;max-width:340px;background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:16px;margin-bottom:16px;text-align:left">';
+  h+='<p style="font-size:14px;font-weight:800;color:#58CC02;margin-bottom:10px">✅ Bản VIPPRO bao gồm:</p>';
+  var bens=["📚 16 trạm · 320+ bài tập","👩‍🏫 Cô Lan giảng bài như lớp học thật","🎧 Luyện Nghe · Nói · Đọc · Viết","🎤 AI chấm điểm phát âm","💾 Lưu tiến độ · Học bất cứ lúc nào","🔄 Cập nhật bài mới miễn phí"];
+  bens.forEach(function(b){h+='<p style="font-size:14px;color:#CDD4DA;padding:4px 0">'+b+'</p>'});
+  h+='</div>';
+  h+='<div style="width:100%;max-width:340px;display:flex;gap:8px;margin-bottom:16px">';
+  h+='<div style="flex:1;background:#1B2B34;border:1px solid #37464F;border-radius:12px;padding:12px;text-align:center"><p style="font-size:12px;color:#566570;margin-bottom:6px">MIỄN PHÍ</p><p style="font-size:20px;font-weight:900;color:#ABB5BA">3 trạm</p><p style="font-size:11px;color:#566570;margin-top:4px">A1 cơ bản</p></div>';
+  h+='<div style="flex:1;background:rgba(255,200,0,.08);border:2px solid #FFC800;border-radius:12px;padding:12px;text-align:center"><p style="font-size:12px;color:#FFC800;margin-bottom:6px">👑 VIPPRO</p><p style="font-size:20px;font-weight:900;color:#FFC800">16 trạm</p><p style="font-size:11px;color:#FF9600;margin-top:4px">A1 → C1 đầy đủ</p></div>';
+  h+='</div>';
+  h+='<div style="width:100%;max-width:340px">';
+  h+='<p style="font-size:13px;color:#ABB5BA;margin-bottom:8px">Nhập mã VIPPRO để mở khóa:</p>';
+  h+='<input id="proInput" type="text" placeholder="Nhập mã VIPPRO..." style="width:100%;padding:14px 20px;border-radius:14px;border:2px solid #37464F;background:#1B2B34;color:#fff;font-size:18px;font-weight:700;font-family:Nunito,sans-serif;text-align:center;outline:none;letter-spacing:2px;margin-bottom:8px" onfocus="this.style.borderColor=\'#FFC800\'" onblur="this.style.borderColor=\'#37464F\'">';
+  h+='<p id="proErr" style="color:#FF4B4B;font-size:13px;font-weight:700;min-height:20px;display:none;margin-bottom:8px">Sai mã! Liên hệ Zalo anh Khởi để mua mã nhé!</p>';
+  h+='<button class="T" style="width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:linear-gradient(90deg,#FFC800,#FF9600);color:#131F24;text-transform:uppercase;letter-spacing:1px" onclick="checkPro()">Kích hoạt VIPPRO 👑</button>';
+  h+='</div>';
+  h+='<div style="width:100%;max-width:340px;margin-top:16px;background:linear-gradient(135deg,rgba(255,200,0,.1),rgba(255,150,0,.08));border:2px solid #FFC800;border-radius:16px;padding:18px;text-align:center">';
+  h+='<p style="font-size:15px;font-weight:900;color:#FFC800;margin-bottom:6px">📞 Liên hệ mua mã VIPPRO</p>';
+  h+='<p style="font-size:18px;font-weight:900;color:#fff;margin-bottom:4px">Phạm Khởi</p>';
+  h+='<a href="https://zalo.me/0962658682" style="display:inline-flex;align-items:center;gap:8px;background:#1CB0F6;color:#fff;padding:12px 24px;border-radius:14px;font-size:16px;font-weight:800;text-decoration:none;margin-top:8px">☎ Zalo: 0962658682</a>';
+  h+='</div>';
+  h+='<button class="T" style="margin-top:16px;background:#37464F;color:#ABB5BA;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:700" onclick="goMap()">← Quay lại</button>';
+  el.innerHTML=h;
+  spVi("Các em muốn học tiếp thì liên hệ Zalo anh Khởi để mua mã VIP PRO nhé! Số điện thoại là 0962658682.");
+  setTimeout(function(){var inp=$("proInput");if(inp)inp.addEventListener("keydown",function(e){if(e.key==="Enter")checkPro()})},100);
+}
+window.checkPro=function(){
+  var inp=$("proInput");var err=$("proErr");
+  if(!inp)return;
+  var proKeys=["VIPPRO"];
+  if(proKeys.indexOf(inp.value.trim())>=0){
+    try{localStorage.setItem(PRO_KEY,"1")}catch(e){}
+    err.style.display="none";
+    spVi("Chúc mừng em đã mở khóa VIP PRO! Tất cả 16 trạm đã sẵn sàng! Cô và em cùng chinh phục tiếng Anh nào!");
+    fc();
+    setTimeout(function(){goMap()},1500);
+  }else{
+    err.style.display="block";
+    inp.style.borderColor="#FF4B4B";
+    inp.value="";
+    setTimeout(function(){inp.style.borderColor="#37464F"},1500);
+  }
+};
+function rl(){show("lesson");$("lesson").style="";var m={teach_vocab:rTV,teach_grammar:rTG,assign:rAS,reading:rR,listening:rL,writing:rW,speaking:rS,done:rD};if(m[ls.ph])m[ls.ph]()}
+
+/* ====== TEACH VOCAB ====== */
+function rTV(){var d=D(),i=ls.vi,v=d.vocab[i],tS=d.vocab.length+d.grammarTips.length+1;
+var h=pH(i+1,tS)+cH()+'<div class="chat" id="cb">';
+if(i===0){h+='<div class="bub as"><div class="bub-av">'+('<img src="'+AVATAR+'" class="av-img">')+'</div><div style="flex:1"><div class="bub-box"><p class="bub-name">Cô Lan</p>Nào các em ơi! Hôm nay lớp mình học <b>'+d.name+'</b> nhé! Cô sẽ dạy các em <b>'+d.vocab.length+' từ vựng mới</b>. Các em chú ý nghe rồi đọc theo cô nha! 📚';
+h+='<br><button class="colan-speak T" onclick="spVi(\'Trạm '+ls.st+'. '+d.name+'. Học '+d.vocab.length+' từ nha!\')">🔊 Cô Lan đọc</button>';
+h+='</div></div></div>'}
+var vnTip=d.vocabTips[i].replace(/<[^>]*>/g,'');
+h+='<div class="bub as"><div class="bub-av">'+('<img src="'+AVATAR+'" class="av-img">')+'</div><div style="flex:1"><div class="bub-box"><p class="bub-name">Cô Lan</p>'+d.vocabTips[i];
+h+='<br><button class="colan-speak T" onclick="spVi(\''+vnTip.replace(/'/g,"\\'")+'\')">🔊 Cô Lan đọc</button>';
+h+='<img class="bub-img" src="'+v.img+'" onerror="this.outerHTML=\'<div style=font-size:48px;text-align:center>'+v.em+'</div>\'">';
+h+='<div style="text-align:center;margin:8px 0"><span style="font-size:26px;font-weight:900">'+v.en+'</span> <span style="font-size:16px;color:#566570">= '+v.vn+'</span></div>';
+h+='<div style="text-align:center;color:#1CB0F6;font-size:15px;font-weight:600">/'+v.ph+'/ <span style="color:#566570;font-size:12px">'+v.ipa+'</span></div>';
+h+='<div style="text-align:center;margin-top:6px"><button class="listen-inline T" onclick="sp(\''+v.en+'\',0.7)">🔊 Nghe Anh</button> ';
+h+='<button class="speak-both T" onclick="spBoth(\''+v.vn.replace(/'/g,"\\'")+'\',\''+v.en+'\')">🔊 Việt → Anh</button></div>';
+h+='</div></div></div></div>';
+h+='<div style="padding:12px 16px;background:#1B2B34;border-top:1px solid #37464F"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:#566570">Từ '+(i+1)+'/'+d.vocab.length+'</span><div style="display:flex;gap:4px">';
+for(var j=0;j<d.vocab.length;j++)h+='<div style="width:10px;height:10px;border-radius:50%;background:'+(j<=i?"#58CC02":"#37464F")+'"></div>';
+h+='</div></div><button class="T" style="width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:#58CC02;color:#fff;text-transform:uppercase;letter-spacing:1px" onclick="nTV()">Tiếp tục</button></div>';
+$("lesson").innerHTML=h;setTimeout(function(){var c=$("cb");if(c)c.scrollTop=c.scrollHeight},100);
+setTimeout(function(){spVi(v.vn+'. '+v.en)},500)}
+window.nTV=function(){ls.vi++;if(ls.vi>=D().vocab.length){ls.ph="teach_grammar";ls.gi=0}sa();rl()};
+
+/* ====== TEACH GRAMMAR ====== */
+function rTG(){var d=D(),i=ls.gi,tS=d.vocab.length+d.grammarTips.length+1;
+var h=pH(d.vocab.length+i+1,tS)+cH()+'<div class="chat" id="cb">';
+for(var j=0;j<=i;j++){
+var gt=d.grammarTips[j];var gtClean=gt.replace(/<[^>]*>/g,'');
+h+='<div class="bub as" style="animation-delay:'+(.05*j)+'s"><div class="bub-av">'+('<img src="'+AVATAR+'" class="av-img">')+'</div><div style="flex:1"><div class="bub-box"><p class="bub-name">Cô Lan</p>'+gt;
+if(j===i)h+='<br><button class="colan-speak T" onclick="spVi(\''+gtClean.replace(/'/g,"\\'").replace(/"/g,"")+'\')">🔊 Cô Lan đọc</button>';
+h+='</div></div></div>'}
+h+='</div><div style="padding:12px 16px;background:#1B2B34;border-top:1px solid #37464F">';
+if(i<d.grammarTips.length-1)h+='<button class="T" style="width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:#1CB0F6;color:#fff;text-transform:uppercase;letter-spacing:1px" onclick="nTG()">Tiếp tục</button>';
+else h+='<button class="T" style="width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:#58CC02;color:#fff;text-transform:uppercase;letter-spacing:1px" onclick="goAS()">Cô giao bài tập!</button>';
+h+='</div>';$("lesson").innerHTML=h;setTimeout(function(){var c=$("cb");if(c)c.scrollTop=c.scrollHeight},100)}
+window.nTG=function(){ls.gi++;sa();rTG()};
+
+/* ====== ASSIGN ====== */
+window.goAS=function(){ls.ph="assign";sa();rl();spVi("Được rồi! Cô đã dạy xong phần lý thuyết. Bây giờ cô giao bài tập cho các em làm nhé. Các em cố gắng làm đúng, sai thì làm lại, không được bỏ cuộc nha!")};
+function rAS(){var d=D();var h=pH(1,1)+'<div class="chat">';
+h+='<div class="bub as"><div class="bub-av">'+('<img src="'+AVATAR+'" class="av-img">')+'</div><div style="flex:1"><div class="bub-box"><p class="bub-name">Cô Lan</p>Nào các em! Cô giao cho các em <b>4 bài tập</b> nhé. Mỗi bài có 5 câu, các em có <b>3 trái tim ❤️</b>. Hết tim thì phải làm lại từ đầu, nên cẩn thận nha!<br><br>⚡ <b>Mới:</b> Trả lời đúng phải <b>đọc lại</b> mới được qua! 💪</div></div></div>';
+h+='<div style="padding:8px 8px 0">';
+[{i:"📖",n:"Đọc",bg:"#58CC02"},{i:"🎧",n:"Nghe",bg:"#1CB0F6"},{i:"✏️",n:"Viết",bg:"#CE82FF"},{i:"🎤",n:"Nói",bg:"#FF9600"}].forEach(function(t){h+='<div class="acard"><div class="acard-i" style="background:'+t.bg+'">'+t.i+'</div><div><p style="font-size:15px;font-weight:700">'+t.n+'</p></div></div>'});
+h+='</div></div><div style="padding:12px 16px;background:#1B2B34;border-top:1px solid #37464F"><button class="T" style="width:100%;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:#58CC02;color:#fff;text-transform:uppercase;letter-spacing:1px" onclick="startEx()">Bắt đầu làm bài</button></div>';
+$("lesson").innerHTML=h}
+window.startEx=function(){ls.ph="reading";ls.qi=0;ls.h=3;ls.xp=0;ls.ok=false;ls.combo=0;ls.sel=null;ls.rp=0;ls.rpTr="";ls.rpSc=0;ls.rpRec=false;sa();rl();spVi("Bài tập đầu tiên là bài Đọc nha các em! Cô đưa ra từ tiếng Việt, các em nhìn rồi chọn bản dịch tiếng Anh đúng. Nhớ đọc kỹ trước khi chọn nhé!")};
+
+function resetRp(){ls.rp=0;ls.rpTr="";ls.rpSc=0;ls.rpRec=false;ls.rpCount=0}
+
+/* ====== READING ====== */
+function rR(){var d=D(),qi=ls.qi,q=d.readQ[qi];
+var h=cH()+pH(qi+1,20);
+h+='<p style="font-size:20px;font-weight:800;padding:4px 16px">Chọn bản dịch đúng</p>';
+h+=cBvi("👩‍🏫",q.vn);
+if(!ls.ok){h+='<div class="opts-list">';q.o.forEach(function(o){var c="opt-fw T";if(ls.sel===o)c+=" selected";h+='<button class="'+c+'" onclick="selR(\''+o.replace(/'/g,"\\'")+'\')">'+o+'</button>'});h+='</div><div class="bsp"></div>';h+='<button class="btn-chk T'+(ls.sel?"":" dis")+'" onclick="chkR()">Kiểm tra</button>'}
+else{h+='<div class="opts-list">';q.o.forEach(function(o){var c="opt-fw";if(o===q.a)c+=" correct";else if(o===ls.pk)c+=" wrong";h+='<button class="'+c+'">'+o+'</button>'});h+='</div><div class="bsp"></div>';
+var isOk=ls.pk===q.a;
+// Find phonetic for repeat
+var voc=d.vocab.find(function(v){return v.en===q.a});
+var rpPh=voc?voc.ph:null;
+h+=resPanel(isOk,isOk?pk(MOK):pk(MNO),isOk?null:"Đáp án: "+q.a,"nR()",isOk?q.a:null,rpPh)}
+$("lesson").innerHTML=h;
+if(!ls.ok&&!ls.sel){setTimeout(function(){spVi(q.vn+" trong tiếng Anh là gì nào?")},400)}}
+window.selR=function(o){ls.sel=o;rR()};
+window.chkR=function(){if(!ls.sel)return;ls.ok=true;ls.pk=ls.sel;resetRp();if(ls.sel===D().readQ[ls.qi].a){bp(1);ls.xp+=10;ls.combo++;ls.rp=1;fc();setTimeout(function(){spVi("Chính xác rồi! Giỏi lắm em ơi! Cô khen nha!")},300)}else{bp(0);ls.h--;ls.combo=0;setTimeout(function(){spVi("Ôi sai rồi em ơi! Đáp án đúng là "+D().readQ[ls.qi].a+". Lần sau nhớ nhé!")},300)}sa();rR()};
+window.nR=function(){if(ls.h<=0){ls.qi=0;ls.h=3;ls.xp=0;ls.combo=0}else if(ls.qi<4)ls.qi++;else{ls.xt+=ls.xp;ls.ph="listening";ls.qi=0;ls.h=3;ls.xp=0;setTimeout(function(){spVi("Tiếp theo là bài Nghe nha! Các em bấm vào nút loa, nghe cô phát âm tiếng Anh, rồi chọn đáp án đúng. Nghe kỹ nhé, cô chỉ đọc một lần thôi!")},300)}ls.ok=false;ls.pk=null;ls.sel=null;resetRp();sa();rl()};
+
+/* ====== LISTENING ====== */
+function rL(){var d=D(),qi=ls.qi,q=d.listenQ[qi];
+var h=cH()+pH(5+qi+1,20);
+h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 16px"><p style="font-size:20px;font-weight:800">Nghe và chọn từ đúng</p></div>';
+h+=cB("👩‍🏫",q.w,true);
+if(!ls.ok){h+='<div class="opts-list">';q.o.forEach(function(o){var c="opt-fw T";if(ls.sel===o)c+=" selected";h+='<button class="'+c+'" onclick="selL(\''+o.replace(/'/g,"\\'")+'\')">'+o+'</button>'});h+='</div><div class="bsp"></div>';h+='<button class="btn-chk T'+(ls.sel?"":" dis")+'" onclick="chkL()">Kiểm tra</button>'}
+else{h+='<div class="opts-list">';q.o.forEach(function(o){var c="opt-fw";if(o===q.w)c+=" correct";else if(o===ls.pk)c+=" wrong";h+='<button class="'+c+'">'+o+'</button>'});h+='</div><div class="bsp"></div>';
+var isOk=ls.pk===q.w;
+var voc=d.vocab.find(function(v){return v.en===q.w});
+var rpPh=voc?voc.ph:null;
+h+=resPanel(isOk,isOk?pk(MOK):pk(MNO),isOk?null:"Đáp án: "+q.w,"nL()",isOk?q.w:null,rpPh)}
+$("lesson").innerHTML=h;
+if(!ls.ok&&!ls.sel){setTimeout(function(){sp(q.w,0.7)},500)}}
+window.selL=function(o){ls.sel=o;rL()};
+window.chkL=function(){if(!ls.sel)return;ls.ok=true;ls.pk=ls.sel;resetRp();if(ls.sel===D().listenQ[ls.qi].w){bp(1);ls.xp+=10;ls.combo++;ls.rp=1;fc();setTimeout(function(){spVi("Đúng rồi! Tuyệt vời! Tai em thính lắm!")},300)}else{bp(0);ls.h--;ls.combo=0;setTimeout(function(){spVi("Chưa đúng nè em! Nghe lại nha, đáp án là "+D().listenQ[ls.qi].w+". Cố lên!")},300)}sa();rL()};
+window.nL=function(){if(ls.h<=0){ls.qi=0;ls.h=3;ls.xp=0;ls.combo=0}else if(ls.qi<4)ls.qi++;else{ls.xt+=ls.xp;ls.ph="writing";ls.qi=0;ls.h=3;ls.xp=0;ls.pl=[];ls.bk=null;setTimeout(function(){spVi("Bài Viết nè các em! Cô sẽ đưa ra câu tiếng Việt, các em bấm vào các từ tiếng Anh để ghép thành câu hoàn chỉnh. Nhớ đúng thứ tự nhé!")},300)}ls.ok=false;ls.pk=null;ls.sel=null;resetRp();sa();rl()};
+
+/* ====== WRITING ====== */
+function rW(){var d=D(),qi=ls.qi,q=d.writeQ[qi];
+if(!ls.bk||(!ls.wr&&ls.bk.length===0&&ls.pl.length===0)){ls.bk=shuf(q.a.concat(q.extra||[]));ls.pl=[]}
+var h=cH()+pH(10+qi+1,20);
+h+='<p style="font-size:13px;font-weight:800;padding:4px 16px;color:#CE82FF">✨ TỪ VỰNG MỚI</p>';
+h+='<p style="font-size:20px;font-weight:800;padding:0 16px 4px">Dịch câu này</p>';
+h+=cBvi("👩‍🏫",q.vn);
+h+='<div class="wb-placed">';ls.pl.forEach(function(w,i){h+='<button class="wb-word placed T" onclick="rwW('+i+')">'+w+'</button>'});
+h+='</div><div class="wb-placed2"></div><p style="text-align:center;font-size:14px;color:#FF9600;font-weight:700;padding:0 16px 8px">🇻🇳 '+q.vn+'</p><div class="wb-bank">';
+ls.bk.forEach(function(w,i){h+='<button class="wb-word T" onclick="awW('+i+')">'+w+'</button>'});h+='</div>';
+if(ls.wr){var isOk=ls.wr==="ok";h+=resPanel(isOk,isOk?pk(MOK):"Sai rồi!",isOk?null:"Đáp án: "+q.a.join(" "),"nW()",isOk?q.a.join(" "):null,null)}
+else{h+='<button class="btn-chk T'+(ls.pl.length>0?"":" dis")+'" onclick="cW()">Kiểm tra</button>'}
+$("lesson").innerHTML=h;
+if(!ls.wr&&ls.pl.length===0){setTimeout(function(){spVi(q.vn)},400)}}
+window.awW=function(i){if(ls.wr)return;ls.pl.push(ls.bk[i]);ls.bk.splice(i,1);sa();rW()};
+window.rwW=function(i){if(ls.wr)return;ls.bk.push(ls.pl[i]);ls.pl.splice(i,1);sa();rW()};
+window.cW=function(){var q=D().writeQ[ls.qi];resetRp();if(ls.pl.join(" ")===q.a.join(" ")){ls.wr="ok";bp(1);ls.xp+=10;ls.combo++;ls.rp=1;fc();setTimeout(function(){spVi("Xuất sắc! Câu hoàn hảo luôn! Cô cho em mười điểm!")},300)}else{ls.wr="no";bp(0);ls.h--;ls.combo=0;setTimeout(function(){spVi("Ôi sai rồi nè! Đáp án đúng là: "+q.a.join(" ")+". Các em nhớ nhé!")},300)}sa();rW()};
+window.nW=function(){if(ls.h<=0){ls.qi=0;ls.h=3;ls.xp=0;ls.combo=0;ls.pl=[];ls.bk=null}else if(ls.qi<4){ls.qi++;ls.pl=[];ls.bk=null}else{ls.xt+=ls.xp;ls.ph="speaking";ls.qi=0;ls.h=3;ls.xp=0;setTimeout(function(){spVi("Bài cuối cùng rồi nè! Bài Nói! Các em bấm vào micro rồi đọc to câu tiếng Anh. Cô sẽ chấm điểm phát âm cho các em nhé. Nói to rõ ràng vào nha!")},300)}ls.wr=null;resetRp();sa();rl()};
+
+/* ====== SPEAKING (already requires speaking, no repeat needed) ====== */
+function rS(){var d=D(),qi=ls.qi,q=d.speakQ[qi];var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+var h=cH()+pH(15+qi+1,20);
+h+='<p style="font-size:20px;font-weight:800;padding:4px 16px">Đọc to câu này</p>';
+h+='<div style="background:#1B2B34;border:1px solid #37464F;border-radius:16px;margin:8px 16px;padding:20px;text-align:center">';
+h+='<p style="font-size:24px;font-weight:900;margin-bottom:4px">'+q.t+'</p>';
+h+='<p style="font-size:16px;color:#1CB0F6">/'+q.ph+'/</p>';
+h+='<p style="font-size:14px;color:#566570;margin-top:4px">'+q.vn+'</p></div>';
+h+='<div style="text-align:center;padding:8px"><button class="T" style="display:inline-flex;align-items:center;gap:8px;background:#1CB0F6;color:#fff;padding:12px 20px;border-radius:14px;font-size:16px;font-weight:700" onclick="sp(\''+q.t.replace(/'/g,"\\'")+'\',0.7)">🔊 Nghe mẫu</button></div>';
+h+='<div style="display:flex;flex-direction:column;align-items:center;padding:16px">';
+if(!SR)h+='<p style="color:#FFC800;font-size:14px">Dùng <b>Chrome</b> Android!</p>';
+else{h+='<button class="T mic-btn '+(ls.rec?"on":"off")+'" onclick="tM()">🎤</button>';h+='<p style="font-size:14px;color:#566570;margin-bottom:16px">'+(ls.rec?"Đang nghe...":"Bấm micro rồi đọc")+'</p>'}
+if(ls.tr){var sc=ls.ss||0,col=sc>=70?"#58CC02":"#FF4B4B";h+='<div style="width:100%;background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:16px"><p style="font-size:12px;color:#566570;margin-bottom:4px">Em nói:</p><p style="font-size:18px;font-weight:700">'+ls.tr+'</p><div style="margin-top:8px;display:flex;align-items:center;gap:8px"><div style="flex:1;height:12px;background:#37464F;border-radius:8px;overflow:hidden"><div style="height:100%;border-radius:8px;width:'+sc+'%;background:'+col+'"></div></div><span style="font-size:14px;font-weight:800;color:'+col+'">'+sc+'%</span></div></div>'}
+h+='</div>';
+if(ls.sr){var isOk=ls.sr==="ok";h+='<div class="rp '+(isOk?"ok":"no")+'"><div class="rp-label"><div class="rp-icon '+(isOk?"ok":"no")+'">'+(isOk?"✓":"✕")+'</div><span class="rp-text '+(isOk?"ok":"no")+'">'+(isOk?(ls.ss===100?"Hoàn hảo!":"Khá! "+ls.ss+"%"):"Chưa đạt "+ls.ss+"%")+'</span></div>'+(isOk?"":'<div class="rp-sub">Cần ít nhất 70%</div>')+'<button class="T btn-ct '+(isOk?"ok":"no")+'" onclick="nS()">Tiếp tục</button></div>'}
+$("lesson").innerHTML=h}
+window.tM=function(){if(ls.rec)return;var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
+var r=new SR();r.lang="en-US";r.interimResults=false;r.maxAlternatives=3;ls.rec=true;ls.tr="";ls.sr=null;rS();
+r.onresult=function(e){var s=e.results[0][0].transcript.toLowerCase().trim(),x=D().speakQ[ls.qi].t.toLowerCase().trim();ls.tr=s;
+var ew=x.split(/\s+/),sw=s.split(/\s+/),m=0;ew.forEach(function(w){if(sw.indexOf(w)>=0)m++});
+var p=Math.round(m/ew.length*100);ls.ss=p;
+if(p>=70){ls.sr="ok";bp(1);ls.xp+=10;ls.combo++;fc();setTimeout(function(){spVi("Phát âm tốt lắm! "+p+" phần trăm!")},400)}else{ls.sr="no";bp(0);ls.h--;ls.combo=0;setTimeout(function(){spVi("Chỉ "+p+" phần trăm thôi. Thử lại nhé!")},400)}ls.rec=false;sa();rS()};
+r.onerror=function(){ls.rec=false;rS()};r.onend=function(){if(ls.rec){ls.rec=false;rS()}};r.start()};
+window.nS=function(){if(ls.h<=0){ls.qi=0;ls.h=3;ls.xp=0;ls.combo=0}else if(ls.qi<4)ls.qi++;else{ls.xt+=ls.xp;ls.ph="done"}ls.sr=null;ls.tr="";ls.ss=0;ls.rec=false;sa();rl()};
+
+/* ====== DONE ====== */
+function rD(){fc();var xp=ls.xt||0,d=D();
+var el=$("lesson");el.style.background="#131F24";el.style.alignItems="center";el.style.justifyContent="center";el.style.textAlign="center";el.style.padding="24px";
+var h='<div style="font-size:80px;margin-bottom:16px" class="ab">🏆</div>';
+h+='<h2 style="font-size:24px;font-weight:900;color:#FFC800;margin-bottom:8px">Xuất sắc!</h2>';
+h+='<p style="font-size:16px;color:#566570;margin-bottom:20px">Hoàn thành Trạm '+ls.st+': '+d.name+'!</p>';
+h+='<div style="background:#1B2B34;border:1px solid #37464F;border-radius:16px;padding:20px;width:100%;max-width:320px;margin-bottom:20px">';
+h+='<div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#566570">Tổng XP</span><span style="font-weight:900;color:#FFC800">⚡ '+xp+'</span></div>';
+h+='<div style="display:flex;justify-content:space-between;margin-bottom:12px"><span style="color:#566570">Combo</span><span style="font-weight:900;color:#FF9600">x'+ls.combo+'</span></div>';
+h+='<div style="display:flex;gap:8px;justify-content:center">'+["📖","🎧","✏️","🎤"].map(function(e){return'<div style="width:40px;height:40px;background:rgba(88,204,2,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">'+e+'</div>'}).join("")+'</div></div>';
+if(ls.st>=FREE_LIMIT&&!isPro()){
+h+='<div style="width:100%;max-width:320px;background:linear-gradient(135deg,rgba(255,200,0,.1),rgba(255,150,0,.1));border:2px solid #FFC800;border-radius:16px;padding:16px;margin-bottom:16px;text-align:center" onclick="showProWall()">';
+h+='<p style="font-size:28px;margin-bottom:6px">👑</p>';
+h+='<p style="font-size:16px;font-weight:900;color:#FFC800;margin-bottom:4px">Em học rất giỏi!</p>';
+h+='<p style="font-size:13px;color:#ABB5BA;margin-bottom:10px">Mở khóa VIPPRO để học tiếp!<br>Liên hệ ☎ Zalo anh Khởi: 0962658682</p>';
+h+='<div style="background:#FFC800;color:#131F24;font-weight:800;font-size:15px;padding:12px;border-radius:12px">Mở khóa VIPPRO ngay 👑</div>';
+h+='</div>';}
+h+='<button class="T" style="width:100%;max-width:320px;padding:16px;border-radius:14px;font-size:17px;font-weight:800;background:#58CC02;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-top:16px" onclick="fin()">Tiếp tục</button>';
+el.innerHTML=h}
+window.fin=function(){sv.u=Math.max(sv.u,ls.st+1);sv.xp+=ls.xt||0;ls.ph="";sa();$("lesson").style="";goMap()};
+
+/* ============ PWA SERVICE WORKER ============ */
+if('serviceWorker' in navigator){
+  var swCode='self.addEventListener("install",function(e){self.skipWaiting()});self.addEventListener("activate",function(e){e.waitUntil(clients.claim())});self.addEventListener("fetch",function(e){e.respondWith(fetch(e.request).catch(function(){return new Response("Offline")}))});';
+  var swBlob=new Blob([swCode],{type:'application/javascript'});
+  var swUrl=URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(function(){});
+}
+
+/* ============ WEB APP MANIFEST (inline) ============ */
+var manifest={name:"English Journey",short_name:"EngJourney",start_url:location.href,display:"standalone",background_color:"#131F24",theme_color:"#131F24",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23131F24' width='100' height='100' rx='20'/><text x='50' y='68' text-anchor='middle' font-size='55'>🚀</text></svg>",sizes:"192x192",type:"image/svg+xml"}]};
+var mBlob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+var mUrl=URL.createObjectURL(mBlob);
+var mLink=document.createElement('link');mLink.rel='manifest';mLink.href=mUrl;document.head.appendChild(mLink);
+
+/* ============ INIT ============ */
+ld();
+if(sv.xp>0||sv.u>1||ls.ph)goMap();
+try{speechSynthesis.getVoices()}catch(e){}
+</script>
+</body>
+</html>
